@@ -76,7 +76,11 @@ php artisan migrate:fresh
 ```
 php artisan db:seed
 ```
-### 8. Open browser and go to localhost
+### 8. Serve the app
+```
+php artisan serve
+```
+### 9. Open browser and go to localhost
 ```
 http://localhost:8000
 ```
