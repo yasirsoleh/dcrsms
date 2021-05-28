@@ -9,36 +9,30 @@ use App\Models\Rider;
 
 class AccountController extends Controller
 {
-
-    public function index()
-    {
-        return view('Account.');
-    }
-
-    public function getAccount()
+    public function viewAccount()
     {
         if (Auth::user()->hasRole('customer')) {
             $customer = Customer::where('user_id', Auth::user()->id)->first();
-            return $customer;
+            return view('Account.CustomerAccount', $customer);
         }elseif (Auth::user()->hasRole('rider')) {
             $rider = Rider::where('user_id', Auth::user()->id)->first();
-            return $rider;
+            return view('Account.RiderAccount', $rider);
         }elseif (Auth::user()->hasRole('staff')) {
             $staff = Staff::where('user_id', Auth::user()->id)->first();
-            return $staff;
+            return view('Account.StaffAccount',$staff);
         }
     }
 
     public function viewAllCustomerAccount()
     {
         $customers = Customer::all();
-        return $customers;
+        return view('Account.ListCustomerAccount', $customers);
     }
 
     public function viewAllRiderAccount()
     {
         $riders = Rider::all();
-        return $riders;
+        return view('Account.ListRiderAccount', $riders);
     }
     
     public function editAccount(Request $request)
