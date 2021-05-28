@@ -51,7 +51,7 @@ http://localhost
 ```
 cd dcrsms
 ```
-#### 2. Composer install using docker to prepare vendor folder
+#### 2. Composer install dependencies
 ```
 composer install
 ```
