@@ -18,8 +18,9 @@ docker run --rm \
 ```
 cp .env.example .env
 ```
-### 4. Edit .env and change the database connect username and password
+### 4. Edit .env and change the variable as follows
 ```
+DB_HOST=mysql
 DB_USERNAME=sail
 DB_PASSWORD=password
 ```
