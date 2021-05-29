@@ -8,6 +8,28 @@ use App\Models\ServiceRequest;
 
 class ServiceQuotationController extends Controller
 {
+
+    public function index()
+    {
+        if (Auth::user()->hasRole('customer')) {
+            $serviceRequests = ServiceRequest::where('customer_id', Auth::user()->id);
+            return view('ServiceQuotation.CustRequestList', $serviceRequests);
+        }elseif (Auth::user()->hasRole('staff')) {
+            $serviceRequests = ServiceRequest::all();
+            return view('ServiceQuotation.StaffRequestList', $serviceRequests);
+        }
+    }
+
+    public function show($id)
+    {
+        $serviceRequest = ServiceRequest::findOrFail($id);
+        if (Auth::user()->hasRole('customer')) {
+            return view('ServiceQuotation.CustRequestStatus', $serviceRequest);
+        }elseif (Auth::user()->hasRole('staff')) {
+            return view('ServiceQuotation.StaffRequestStatus', $serviceRequest);
+        }
+    }
+
     public function requestService()
     {
         if (Auth::user()->hasRole('customer')) {
