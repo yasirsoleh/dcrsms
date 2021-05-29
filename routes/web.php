@@ -68,3 +68,6 @@ Route::prefix('/account')->group(function () {
 
 // Route Repairing Service
 Route::view('/StaffSearchID', 'RepairingService.StaffSearchID');
+
+Route::view('/StaffUpdateRequest', 'RepairingService.StaffUpdateRequest');
+
