@@ -67,7 +67,30 @@ Route::prefix('/account')->group(function () {
 });
 
 Route::prefix('/quotation')->group(function () {
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/', [ServiceQuotationController::class,'index'])
+            ->name('quotation');
+
+        Route::get('/{id}', [ServiceQuotationController::class,'show'])
+            ->name('quotation.show');
     
+        Route::post('/', [ServiceQuotationController::class, 'saveServiceRequest'])
+            ->name('quotation');
+
+        Route::post('/approval',[ServiceQuotationController::class, 'approval'])
+            ->name('quotation.approval');
+
+        Route::get('/{id}/items', [ServiceQuotationController::class, 'getQuotation'])
+            ->name('quotation.items');
+
+        Route::get('/{id}', [ServiceQuotationController::class,'addQuotation'])
+            ->name('quotation.items');
+
+        Route::post('/{id}/items/delete',[ServiceQuotationController::class, 'deleteQuotation'])
+            ->name('quotation.items.delete');
+        
+    });
 });
 
 

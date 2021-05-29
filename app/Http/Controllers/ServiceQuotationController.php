@@ -98,7 +98,7 @@ class ServiceQuotationController extends Controller
             $serviceRequest->approval_status = 'no'
             $serviceRequest->rejection_reason = $request->rejection_reason;
         }
-        return $serviceRequest;
+        $serviceRequest->save();
     }
 
     public function customerApproval(Request $request)
@@ -112,6 +112,30 @@ class ServiceQuotationController extends Controller
         }else {
             $serviceRequest->customer_approval = 'no'
         }
+        return $serviceRequest;
+    }
+
+    public function approval(Request $request)
+    {
+        $request->validate([
+            ServiceRequest::findOrFail($request->id);
+        ]);
+        $serviceRequest = ServiceRequest::where('id',$request->id)->first();
+        if (Auth::user()->hasRole('customer')) {
+            if ($request->customer_approval=='yes') {
+                $serviceRequest->customer_approval = 'yes'
+            }else {
+                $serviceRequest->customer_approval = 'no'
+            }
+        }elseif (Auth::user()->hasRole('staff')) {
+            if ($request->approval_status=='yes') {
+                $serviceRequest->approval_status = 'yes'
+            }else {
+                $serviceRequest->approval_status = 'no'
+                $serviceRequest->rejection_reason = $request->rejection_reason;
+            }
+        }
+        $serviceRequest->save();
         return $serviceRequest;
     }
 }
