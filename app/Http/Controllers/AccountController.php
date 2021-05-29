@@ -25,14 +25,18 @@ class AccountController extends Controller
 
     public function viewAllCustomerAccount()
     {
-        $customers = Customer::all();
-        return view('Account.ListCustomerAccount', $customers);
+        if (Auth::user()->hasRole('staff')) {
+            $customers = Customer::all();
+            return view('Account.ListCustomerAccount', $customers);
+        }
     }
 
     public function viewAllRiderAccount()
     {
-        $riders = Rider::all();
-        return view('Account.ListRiderAccount', $riders);
+        if (Auth::user()->hasRole('staff')) {
+            $riders = Rider::all();
+            return view('Account.ListRiderAccount', $riders);
+        }
     }
     
     public function editAccount(Request $request)
@@ -43,9 +47,8 @@ class AccountController extends Controller
                 'last_name' => 'required|string|max:255',
                 'address' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => ['required', 'confirmed', Rules\Password::min(8)],
             ]);
-            $user = Auth::user();
+            $user = User::where('id', Auth::user()->id)->first();
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
@@ -60,11 +63,10 @@ class AccountController extends Controller
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'address' => 'required|string|max:255',
-                'password' => ['required', 'confirmed', Rules\Password::min(8)],
                 'roadtax' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
                 'license' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
             ]);
-            $user = Auth::user();
+            $user = User::where('id', Auth::user()->id)->first();
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
@@ -83,7 +85,7 @@ class AccountController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => ['required', 'confirmed', Rules\Password::min(8)],
             ]);
-            $user = Auth::user();
+            $user = User::where('id', Auth::user()->id)->first();
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceQuotationsTable extends Migration
+class CreateQuotationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateServiceQuotationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_quotations', function (Blueprint $table) {
+        Schema::create('quotations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('request_id')->constrained('service_requests');
             $table->string('description');
@@ -29,6 +29,6 @@ class CreateServiceQuotationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_quotations');
+        Schema::dropIfExists('quotations');
     }
 }

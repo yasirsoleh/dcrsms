@@ -10,7 +10,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         
         <div class="space-y-3">
-            <p class="text-3xl text-center">Register as</p>
+            <p class="text-2xl text-center">Register as</p>
             <a class="btn btn-block" href="{{ route('register.customer') }}">Customer</a>
             <a class="btn btn-block" href="{{ route('register.rider') }}">Rider</a>
         </div>

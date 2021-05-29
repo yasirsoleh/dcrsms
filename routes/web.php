@@ -66,4 +66,8 @@ Route::prefix('/account')->group(function () {
     });
 });
 
+Route::prefix('/quotation')->group(function () {
+    
+});
+
 

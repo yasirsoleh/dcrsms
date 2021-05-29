@@ -5,7 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceQuotation extends Model
+class Quotation extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'request_id',
+        'description',
+        'cost',
+    ];
 }
