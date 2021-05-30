@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Quotation;
 use App\Models\ServiceRequest;
 
-class ServiceQuotationController extends Controller
+class QuotationController extends Controller
 {
 
     public function index()
     {
         if (Auth::user()->hasRole('customer')) {
-            $serviceRequests = ServiceRequest::where('customer_id', Auth::user()->id);
+            $serviceRequests = Auth::user()->customer()->service_requests();
             return view('ServiceQuotation.CustRequestList', $serviceRequests);
         }elseif (Auth::user()->hasRole('staff')) {
             $serviceRequests = ServiceRequest::all();

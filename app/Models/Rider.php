@@ -16,5 +16,21 @@ class Rider extends Model
         'address',
         'roadtax',
         'license',
+        'status',
     ];
+
+    public function pick_ups()
+    {
+        return $this->hasMany(PickUp::class)->withDefault();
+    }
+
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class)->withDefault();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

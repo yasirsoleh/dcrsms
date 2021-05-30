@@ -16,6 +16,37 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('service_request.index')" :active="request()->routeIs('service_request.index')">
+                        {{ __('Service Request') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('pick_up.index')" :active="request()->routeIs('pick_up.index')">
+                        {{ __('Pick Up') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('repair.index')" :active="request()->routeIs('repair.index')">
+                        {{ __('Repair') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('delivery.index')" :active="request()->routeIs('delivery.index')">
+                        {{ __('Delivery') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
+                        {{ __('Payment') }}
+                    </x-nav-link>
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->

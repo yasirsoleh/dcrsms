@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Delivery extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'rider_id',
+        'service_request_id',
+        'address',
+        'cash_on_delivery',
+        'status',
+    ];
+
+    public function rider()
+    {
+        return $this->belongsTo(Rider::class)->withDefault();
+    }
 }

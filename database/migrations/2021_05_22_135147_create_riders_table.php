@@ -14,6 +14,7 @@ class CreateRidersTable extends Migration
     public function up()
     {
         Schema::create('riders', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
@@ -21,6 +22,7 @@ class CreateRidersTable extends Migration
             $table->string('address');
             $table->binary('roadtax');
             $table->binary('license');
+            $table->enum('status',['not_approved', 'approved','banned'])->nullable();
             $table->timestamps();
         });
     }

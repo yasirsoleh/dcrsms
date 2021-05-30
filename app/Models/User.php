@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use App\Models\Customer;
+use App\Models\Rider;
+use App\Models\Staff;
 
 class User extends Authenticatable
 {
@@ -42,4 +45,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function customer()
+    {
+        //return $this->hasOne(Customer::class);
+        return Customer::firstWhere('user_id', $this->id);
+    }
+
+    public function rider()
+    {
+        //return $this->hasOne(Rider::class);
+        return Rider::firstWhere('user_id', $this->id);
+    }
+
+    public function staff()
+    {
+        //return $this->hasOne(Staff::class);
+        return Staff::firstWhere('user_id', $this->id);
+    }
 }

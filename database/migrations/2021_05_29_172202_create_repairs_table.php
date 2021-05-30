@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePickUpsTable extends Migration
+class CreateRepairsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePickUpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pick_ups', function (Blueprint $table) {
+        Schema::create('repairs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rider_id')->constrained();
-            $table->foreignId('service_request_id')->constrained();
-            $table->string('address');
-            $table->enum('status', ['waiting_rider', 'picking_up','completed','failed']);
+            $table->foreignId('service_request_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['pending', 'on_progress', 'repaired','cannot_be_repaired']);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreatePickUpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pick_ups');
+        Schema::dropIfExists('repairs');
     }
 }

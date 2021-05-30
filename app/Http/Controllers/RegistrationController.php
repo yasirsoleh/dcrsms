@@ -48,7 +48,7 @@ class RegistrationController extends Controller
         Customer::create([
             'user_id' => $user->id,
             'first_name' => $request->first_name,
-            'last_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'phone_number' => $request->phone_number, 
             'address' => $request->address,
         ]);
@@ -79,7 +79,7 @@ class RegistrationController extends Controller
         Rider::create([
             'user_id' => $user->id,
             'first_name' => $request->first_name,
-            'last_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'phone_number' => $request->phone_number, 
             'address' => $request->address,
             'roadtax' => $request->file('roadtax')->store('roadtaxFile'),
@@ -114,7 +114,7 @@ class RegistrationController extends Controller
         Staff::create([
             'user_id' => $user->id,
             'first_name' => $request->first_name,
-            'last_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'phone_number' => $request->phone_number, 
         ]);
 

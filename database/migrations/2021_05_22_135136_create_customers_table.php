@@ -14,11 +14,13 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('address');
+            $table->enum('status',['not_banned','banned'])->nullable();
             $table->timestamps();
         });
     }

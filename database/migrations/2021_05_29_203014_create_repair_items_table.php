@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRepairingServicesTable extends Migration
+class CreateRepairItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRepairingServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('repairing_services', function (Blueprint $table) {
+        Schema::create('repair_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('request_id')->constrained('service_requests')->onDelete('cascade');
-            $table->enum('status', ['pending', 'on_progress', 'repaired','cannot_be_repaired']);
+            $table->foreignId('repair_id')->constrained()->onDelete('cascade');
+            $table->string('description');
             $table->float('cost');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateRepairingServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('repairing_services');
+        Schema::dropIfExists('repair_items');
     }
 }

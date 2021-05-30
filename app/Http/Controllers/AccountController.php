@@ -3,22 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
 use App\Models\Staff;
 use App\Models\Rider;
 
 class AccountController extends Controller
 {
-    public function viewAccount()
+    public function index()
     {
         if (Auth::user()->hasRole('customer')) {
-            $customer = Customer::where('user_id', Auth::user()->id)->first();
+            $customer = Auth::user()->customer();
             return view('Account.CustomerAccount', $customer);
         }elseif (Auth::user()->hasRole('rider')) {
-            $rider = Rider::where('user_id', Auth::user()->id)->first();
+            $rider = Auth::user()->rider();
             return view('Account.RiderAccount', $rider);
         }elseif (Auth::user()->hasRole('staff')) {
-            $staff = Staff::where('user_id', Auth::user()->id)->first();
+            $staff = Auth::user()->staff();
             return view('Account.StaffAccount',$staff);
         }
     }
@@ -48,11 +49,11 @@ class AccountController extends Controller
                 'address' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
             ]);
-            $user = User::where('id', Auth::user()->id)->first();
+            $user = Auth::user();
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
-            $customer = Customer::where('user_id', Auth::user()->id)->first();
+            $customer = $user->customer();
             $customer->first_name = $request->first_name;
             $customer->last_name = $request->last_name;
             $customer->address = $request->address;
@@ -66,11 +67,11 @@ class AccountController extends Controller
                 'roadtax' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
                 'license' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
             ]);
-            $user = User::where('id', Auth::user()->id)->first();
+            $user = Auth::user();
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
-            $rider = Rider::where('user_id', Auth::user()->id)->first();
+            $rider = $user->rider();
             $rider->first_name = $request->first_name;
             $rider->last_name = $request->last_name;
             $rider->address = $request->address;
@@ -85,14 +86,22 @@ class AccountController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => ['required', 'confirmed', Rules\Password::min(8)],
             ]);
-            $user = User::where('id', Auth::user()->id)->first();
+            $user = Auth::user();
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
-            $staff = Staff::where('user_id', $user->$id)->first();
+            $staff = $user->staff();
             $staff->first_name = $request->first_name;
             $staff->last_name = $request->last_name;
             $staff->save();
+        }
+    }
+
+    public function changeStatus(Request $request)
+    {
+        if (Auth::user()-hasRole('staff')) {
+            $user = User::find($request->id);
+            $user->status = $request->status;
         }
     }
 }

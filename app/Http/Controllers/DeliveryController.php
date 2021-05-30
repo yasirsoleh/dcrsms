@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class PaymentController extends Controller
+class DeliveryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(Delivery $delivery)
     {
         //
     }
@@ -52,10 +53,10 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(Delivery $delivery)
     {
         //
     }
@@ -64,10 +65,10 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, Delivery $delivery)
     {
         //
     }
@@ -75,10 +76,10 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(Delivery $delivery)
     {
         //
     }
