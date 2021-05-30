@@ -10,6 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
+                        <a href="{{ route('service_request.create') }}" class="btn mb-3">New</a> 
                         <table class="table w-full">
                             <thead>
                                 <tr>
@@ -19,14 +20,22 @@
                                 </tr>
                             </thead> 
                             <tbody>
-                                <tr>
-                                    <th>1</th> 
-                                    <td>Cy Ganderton</td> 
-                                    <td>Quality Control Specialist</td> 
-                                </tr>
+                                @if ($service_requests ?? ''!=null)
+                                    @foreach ($service_requests as $item)
+                                    <tr>
+                                        <th>{{ $item->id }}</th> 
+                                        <td>{{ $item->device_name }}</td> 
+                                        <td>{{ $item->approval_status }}</td> 
+                                    </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td class="text-center text-xl" colspan="3">You have no request</td>
+                                    </tr>
+                                @endif
                             </tbody>
-                            </table>
-                      </div>                      
+                        </table>
+                    </div>                      
                 </div>
             </div>
         </div>

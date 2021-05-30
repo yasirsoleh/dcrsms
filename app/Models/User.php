@@ -48,8 +48,8 @@ class User extends Authenticatable
 
     public function customer()
     {
-        //return $this->hasOne(Customer::class);
-        return Customer::firstWhere('user_id', $this->id);
+        return $this->hasOne(Customer::class);
+        //return Customer::firstWhere('user_id', $this->id);
     }
 
     public function rider()

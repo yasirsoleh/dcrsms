@@ -3,7 +3,7 @@
 ### Using sail
 #### 1. Make sure to be inside the directory
 ```
-cd dcrsms
+cd dcrsms-nuked
 ```
 #### 2. Composer install using docker to prepare vendor folder
 ```
@@ -49,7 +49,7 @@ http://localhost
 ### Using XAMPP
 #### 1. Make sure to be inside the directory
 ```
-cd dcrsms
+cd dcrsms-nuked
 ```
 #### 2. Composer install dependencies
 ```

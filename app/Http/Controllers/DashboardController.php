@@ -16,16 +16,18 @@ class DashboardController extends Controller
     public function index()
     {
         if (Auth::user()->hasRole('customer')) {
-            //$customer = Customer::where('user_id', Auth::user()->id)->first();
-            $customer = Auth::user()->customer();
+            //$data = Customer::where('user_id', Auth::user()->id)->first();
+            $data = Auth::user()->customer();
+            //$data = Customer::find(1)->user();
+            dd($data);
             //$data = Customer::find(5)->user();
-            dd($customer);
+            //dd($customer);
             return view('dashboard', compact('data'));
         }elseif (Auth::user()->hasRole('rider')) {
-            $data = Rider::where('user_id', Auth::user()->id)->first();
+            $data = Auth::user()->rider();
             return view('dashboard', compact('data'));
         }elseif (Auth::user()->hasRole('staff')) {
-            $data = Staff::where('user_id', Auth::user()->id)->first();
+            $data = Auth::user()->staff();
             return view('dashboard',compact('data'));
         }
     }

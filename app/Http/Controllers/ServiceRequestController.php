@@ -16,11 +16,13 @@ class ServiceRequestController extends Controller
     public function index()
     {
         if (Auth::user()->hasRole('customer')) {
-            $serviceRequests = Auth::user()->customer()->service_requests();
-            return view('ServiceQuotation.index',);
+            //$service_requests = Auth::user()->customer()->service_requests();
+            $service_requests = ServiceRequest::all();
+            //dd($service_requests);
+            return view('ServiceQuotation.index', $service_requests);
         }elseif (Auth::user()->hasRole('staff')) {
-            $serviceRequests = ServiceRequest::all();
-            return view('ServiceQuotation.StaffRequestList', $serviceRequests);
+            $service_requests = ServiceRequest::all();
+            return view('ServiceQuotation.index', $service_requests);
         }
     }
 
@@ -32,7 +34,7 @@ class ServiceRequestController extends Controller
     public function create()
     {
         if (Auth::user()->hasRole('customer')) {
-            return view('ServiceQuotation.CustRequestService');
+            return view('ServiceQuotation.create');
         }
     }
 

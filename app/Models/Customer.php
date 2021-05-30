@@ -27,14 +27,19 @@ class Customer extends Model
 
     public function user()
     {
-        //return $this->belongsTo(User::class);
-        return User::firstWhere('id', $this->user_id);
+        return $this->belongsTo(User::class);
+        //return User::firstWhere('id', $this->user_id);
     }
 
     public function repair()
     {
-        return Repair::addSelect([
-            'service_request_id' => 
-        ])
+        //
     }
+
+    public function getFirstNameAttribute($value)
+    {
+        return $value;
+    }
+
+    
 }
