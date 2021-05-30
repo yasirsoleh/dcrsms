@@ -65,6 +65,19 @@
                     </x-slot>
 
                     <x-slot name="content">
+
+                        <x-dropdown-link href="{{ route('account') }}">
+                            {{ __('Manage Account') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link href="{{ route('account.list.customer') }}">
+                            {{ __('Manage Customer') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link href="{{ route('account.list.rider') }}">
+                            {{ __('Manage Rider') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

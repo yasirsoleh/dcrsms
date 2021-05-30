@@ -13,4 +13,9 @@ class RepairItem extends Model
         'description',
         'cost'
     ];
+
+    public function repair()
+    {
+        return $this->belongsTo(Repair::class);
+    }
 }

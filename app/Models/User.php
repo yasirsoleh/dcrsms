@@ -54,13 +54,13 @@ class User extends Authenticatable
 
     public function rider()
     {
-        //return $this->hasOne(Rider::class);
-        return Rider::firstWhere('user_id', $this->id);
+        return $this->hasOne(Rider::class);
+        //return Rider::firstWhere('user_id', $this->id);
     }
 
     public function staff()
     {
-        //return $this->hasOne(Staff::class);
-        return Staff::firstWhere('user_id', $this->id);
+        return $this->hasOne(Staff::class);
+        //return Staff::firstWhere('user_id', $this->id);
     }
 }

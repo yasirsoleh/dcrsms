@@ -17,9 +17,9 @@ class DashboardController extends Controller
     {
         if (Auth::user()->hasRole('customer')) {
             //$data = Customer::where('user_id', Auth::user()->id)->first();
-            $data = Auth::user()->customer();
+            $data = Auth::user()->customer;
             //$data = Customer::find(1)->user();
-            dd($data);
+            //dd($data);
             //$data = Customer::find(5)->user();
             //dd($customer);
             return view('dashboard', compact('data'));

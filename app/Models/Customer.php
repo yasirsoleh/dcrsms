@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    protected $table = 'customers';
     protected $fillable = [
         'id',
         'user_id',
@@ -21,8 +20,8 @@ class Customer extends Model
 
     public function service_requests()
     {
-        //return $this->hasMany(ServiceRequest::class)->withDefault();
-        return ServiceRequest::where('customer_id', $this->id);
+        return $this->hasMany(ServiceRequest::class)->withDefault();
+        //return ServiceRequest::where('customer_id', $this->id);
     }
 
     public function user()
@@ -36,10 +35,4 @@ class Customer extends Model
         //
     }
 
-    public function getFirstNameAttribute($value)
-    {
-        return $value;
-    }
-
-    
 }

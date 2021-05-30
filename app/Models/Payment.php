@@ -14,4 +14,9 @@ class PaymentModel extends Model
         'amount',
         'status',
     ];
+
+    public function service_request()
+    {
+        return $this->belongsTo(ServiceRequest::class);
+    }
 }

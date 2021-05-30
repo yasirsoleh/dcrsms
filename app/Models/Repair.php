@@ -17,4 +17,9 @@ class Repair extends Model
     {
         return $this->hasMany(repairItem::class)->withDefault();
     }
+
+    public function service_request()
+    {
+        return $this->belongsTo(ServiceRequest::class);
+    }
 }

@@ -25,31 +25,36 @@ class ServiceRequest extends Model
 
     public function quotations()
     {
-        //return $this->hasMany(Quotation::class)->withDefault();
-        return Quotation::where('service_request_id', $this->id);
+        return $this->hasMany(Quotation::class)->withDefault();
+        //return Quotation::where('service_request_id', $this->id);
     }
 
     public function repair()
     {
-        //return $this->hasOne(Repair::class)->withDefault();
-        return Repair::firstWhere('service_request_id', $this->id);
+        return $this->hasOne(Repair::class)->withDefault();
+        //return Repair::firstWhere('service_request_id', $this->id);
     }
 
     public function pick_up()
     {
-        //return $this->hasOne(PickUp::class)->withDefault();
-        return PickUp::firstWhere('service_request_id', $this->id);
+        return $this->hasOne(PickUp::class)->withDefault();
+        //return PickUp::firstWhere('service_request_id', $this->id);
     }
 
     public function delivery()
     {
-        //return $this->hasOne(Delivery::class)->withDefault();
-        return Delivery::firstWhere('service_request_id', $this->id);
+        return $this->hasOne(Delivery::class)->withDefault();
+        //return Delivery::firstWhere('service_request_id', $this->id);
     }
 
     public function payment()
     {
-        //return $this->hasOne(Payment::class)->withDefault();
-        return Payment::firstWhere('service_request_id', $this->id);
+        return $this->hasOne(Payment::class)->withDefault();
+        //return Payment::firstWhere('service_request_id', $this->id);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

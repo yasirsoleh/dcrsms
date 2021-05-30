@@ -38,6 +38,7 @@ class RegistrationController extends Controller
             'address' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::min(8)],
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:11',
         ]);
 
         $user = User::create([
@@ -67,6 +68,7 @@ class RegistrationController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'address' => 'required|string|max:255',
             'password' => ['required', 'confirmed', Rules\Password::min(8)],
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:11',
             'roadtax' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
             'license' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
         ]);
@@ -104,6 +106,7 @@ class RegistrationController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::min(8)],
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:11',
         ]);
 
         $user = User::create([
