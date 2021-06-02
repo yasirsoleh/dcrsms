@@ -11,15 +11,14 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                        <form action="{{ route('service_request.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('service_request.store') }}" method="POST">
                             @csrf
                             <label class="label" for="device_name">Device Name</label>
-                            <input type="text" name="device_name" placeholder="Device Name" class="input input-bordered">
+                            <input type="text" name="device_name" placeholder="Device Name" class="input input-bordered" value="{{ $service_request->device_name }}" disabled>
                             <label class="label" for="picture">Picture</label>
-                            <input type="file" name="picture" accept="image/*" class="input">
+                            <img src="{{ base64_decode($service_request->picture) }}" class="">
                             <label class="label" for="device_description">Symptom or the damage information</label>
-                            <textarea class="textarea textarea-bordered min-w-full" name="device_description" style="min-height:300px" placeholder="Input Symptom"></textarea>
-                            <input class="btn mt-3" type="submit">
+                            <textarea class="textarea textarea-bordered min-w-full" name="device_description" style="min-height:300px" placeholder="Input Symptom" disabled>{{ $service_request->device_description }}</textarea>
                         </form>
                     </div>                      
                 </div>

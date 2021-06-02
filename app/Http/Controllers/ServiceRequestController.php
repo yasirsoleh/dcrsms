@@ -17,12 +17,12 @@ class ServiceRequestController extends Controller
     {
         if (Auth::user()->hasRole('customer')) {
             //$service_requests = Auth::user()->customer()->service_requests();
-            $service_requests = ServiceRequest::all();
+            $service_requests = Auth::user()->service_requests;
             //dd($service_requests);
-            return view('ServiceQuotation.index', $service_requests);
+            return view('ServiceQuotation.index', compact('service_requests'));
         }elseif (Auth::user()->hasRole('staff')) {
             $service_requests = ServiceRequest::all();
-            return view('ServiceQuotation.index', $service_requests);
+            return view('ServiceQuotation.index', compact('service_requests'));
         }
     }
 
@@ -51,13 +51,15 @@ class ServiceRequestController extends Controller
             'device_description' => 'required|string|max:255',
             'picture' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
         ]);
-        $serviceRequest = ServiceRequest::create([
+
+        $service_request = ServiceRequest::create([
             'device_name' => $request->device_name,
             'device_description' => $request->device_description,
             'picture' => $request->picture,
-            'customer_id' => Auth::user()->id,
+            'customer_id' => Auth::user()->customer->id,
         ]);
-        return $serviceRequest;
+
+        return redirect()->route('service_request.show', $service_request);
     }
 
     /**
@@ -66,12 +68,16 @@ class ServiceRequestController extends Controller
      * @param  \App\Models\ServiceRequest  $serviceRequest
      * @return \Illuminate\Http\Response
      */
-    public function show(ServiceRequest $serviceRequest)
+    public function show(ServiceRequest $service_request)
     {
         if (Auth::user()->hasRole('customer')) {
-            return view('ServiceQuotation.CustRequestStatus', $serviceRequest);
+            if ($service_request->customer->id == Auth::user()->customer->id) {
+                return view('ServiceQuotation.show', compact('service_request'));
+            }else {
+                return redirect()->route('service_request.index');
+            }
         }elseif (Auth::user()->hasRole('staff')) {
-            return view('ServiceQuotation.StaffManageRequest');
+            return view('ServiceQuotation.show',compact('service_request'));
         }
     }
 

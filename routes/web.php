@@ -111,10 +111,6 @@ Route::prefix('/service_request')->group(function () {
         ->name('service_request.index');
     Route::get('/create', [ServiceRequestController::class, 'create'])
         ->name('service_request.create');
-    Route::post('/', [ServiceRequestController::class, 'store'])
-        ->name('service_request.store');
-    Route::get('/{service_request}', [ServiceRequestController::class, 'show'])
-        ->name('service_request.show');
     Route::get('/{service_request}/edit', [ServiceRequestController::class, 'edit'])
         ->name('service_request.edit');
     Route::put('/{create}', [ServiceRequestController::class, 'update'])
@@ -201,13 +197,24 @@ Route::prefix('/service_request')->group(function () {
 });
 
 Route::get('/pick_up', [PickUpController::class, 'index'])
+    ->middleware('auth')
     ->name('pick_up.index');
 
 Route::get('/repair', [RepairController::class, 'index'])
+    ->middleware('auth')
     ->name('repair.index');
 
 Route::get('/delivery', [DeliveryController::class, 'index'])
+    ->middleware('auth')
     ->name('delivery.index');
 
 Route::get('/payment', [PaymentController::class, 'index'])
+    ->middleware('auth')
     ->name('payment.index');
+
+Route::post('/service_request', [ServiceRequestController::class, 'store'])
+    ->middleware('auth', 'role:customer')
+    ->name('service_request.store');
+
+Route::get('service_request/{service_request}', [ServiceRequestController::class, 'show'])
+    ->name('service_request.show');

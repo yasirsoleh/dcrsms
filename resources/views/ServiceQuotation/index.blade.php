@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Service Request') }}
         </h2>
     </x-slot>
 
@@ -10,22 +10,26 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
-                        <a href="{{ route('service_request.create') }}" class="btn mb-3">New</a> 
+                        @if (Auth::user()->hasRole('customer'))
+                            <a href="{{ route('service_request.create') }}" class="btn mb-3">New</a> 
+                        @endif
                         <table class="table w-full">
                             <thead>
                                 <tr>
                                     <th>No</th> 
                                     <th>Device Name</th> 
                                     <th>Approval</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead> 
                             <tbody>
-                                @if ($service_requests ?? ''!=null)
+                                @if ($service_requests !=null)
                                     @foreach ($service_requests as $item)
                                     <tr>
                                         <th>{{ $item->id }}</th> 
                                         <td>{{ $item->device_name }}</td> 
                                         <td>{{ $item->approval_status }}</td> 
+                                        <td><a class="btn btn-sm" href="service_request/{{ $item->id }}">View</a>
                                     </tr>
                                     @endforeach
                                 @else

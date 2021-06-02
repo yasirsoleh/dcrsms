@@ -63,4 +63,14 @@ class User extends Authenticatable
         return $this->hasOne(Staff::class);
         //return Staff::firstWhere('user_id', $this->id);
     }
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function service_requests()
+    {
+        return $this->hasManyThrough(ServiceRequest::class, Customer::class);
+    }
 }
