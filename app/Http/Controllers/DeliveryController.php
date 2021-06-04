@@ -15,7 +15,8 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //
+        // Returns the rider to the rider homepage
+        return view('PickUpDelivery.RiderAvailableJob');
     }
 
     /**
@@ -25,7 +26,9 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        //
+        // Service provider sends a delivery request for
+
+
     }
 
     /**

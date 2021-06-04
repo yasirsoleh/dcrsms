@@ -22,9 +22,24 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // Retrieve the payment data from the MainPayment interface and pass to the model
+        Payment::create([
+            'service_request_id' => auth()->user()->service_request,
+            'type' => $request->type,
+            'amount' => $request->amount,
+            'status' => $request->status
+        ]);
+        if ($request->type == "card") {
+            // redirect to card page
+            return view('Payment.BankOptions');
+        } else {
+            // redirect to the payment summary
+            // TODO find how to include some additional data when returning to page
+            // TODO jap bakpo doh, Sbb nk return object payment kot for some reason
+            return view('Payment.PaymentSuccess');
+        }
     }
 
     /**
@@ -33,53 +48,11 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
+        // Store the the status of the payment when the payment status changes
+        $payment = Payment::find($request->service_request_id);
+        $payment->status = $request->status;
+        $payment->save();
     }
 }
