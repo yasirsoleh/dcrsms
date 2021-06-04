@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quotation;
+use App\Models\ServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,16 @@ class QuotationController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check() && Auth::user()->hasRole('customer')) {
+            $service_requests = Auth::user()->service_requests;
+            $service_requests = $service_requests->where('approval_status','yes');
+            return view('Quotation.index', compact('service_requests'));
+        }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
+            $service_requests = ServiceRequest::all();
+            $service_requests = $service_requests->where('approval_status','yes');
+            return view('Quotation.index', compact('service_requests'));
+        }
+        return redirect()->route('login');
     }
 
     /**
@@ -23,9 +33,10 @@ class QuotationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ServiceRequest $service_request)
     {
-        //
+        //dd($service_request);
+        return view('Quotation.create',compact('service_request'));
     }
 
     /**
@@ -41,7 +52,7 @@ class QuotationController extends Controller
             'cost' => 'required|numeric',
         ]);
         $quotation = Quotation::create([
-            'request_id' => $request->request_id,
+            'service_request_id' => $request->service_request_id,
             'description' => $request->description,
             'cost' => $request->cost,
         ]);

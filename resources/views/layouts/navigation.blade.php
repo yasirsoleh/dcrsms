@@ -24,6 +24,12 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('quotation.index')" :active="request()->routeIs('quotation.index')">
+                        {{ __('Quotation') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('pick_up.index')" :active="request()->routeIs('pick_up.index')">
                         {{ __('Pick Up') }}
                     </x-nav-link>

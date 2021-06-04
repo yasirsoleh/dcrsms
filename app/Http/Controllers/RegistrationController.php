@@ -54,7 +54,7 @@ class RegistrationController extends Controller
             'address' => $request->address,
         ]);
 
-        $user->attachRole("customer");
+        $user->attachRole('customer');
         event(new Registered($user));
         Auth::login($user);
         return redirect(RouteServiceProvider::HOME);
@@ -88,7 +88,7 @@ class RegistrationController extends Controller
             'license' => $request->file('license')->store('licenseFile'),
         ]);
 
-        $user->attachRole("rider");
+        $user->attachRole('rider');
         event(new Registered($user));
         Auth::login($user);
         return redirect(RouteServiceProvider::HOME);
@@ -121,7 +121,7 @@ class RegistrationController extends Controller
             'phone_number' => $request->phone_number, 
         ]);
 
-        $user->attachRole("staff");
+        $user->attachRole('staff');
         event(new Registered($user));
         Auth::login($user);
         return redirect(RouteServiceProvider::HOME);

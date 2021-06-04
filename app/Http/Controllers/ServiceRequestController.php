@@ -15,15 +15,16 @@ class ServiceRequestController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole('customer')) {
+        if (Auth::check() && Auth::user()->hasRole('customer')) {
             //$service_requests = Auth::user()->customer()->service_requests();
             $service_requests = Auth::user()->service_requests;
             //dd($service_requests);
-            return view('ServiceQuotation.index', compact('service_requests'));
-        }elseif (Auth::user()->hasRole('staff')) {
+            return view('ServiceRequest.index', compact('service_requests'));
+        }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
             $service_requests = ServiceRequest::all();
-            return view('ServiceQuotation.index', compact('service_requests'));
+            return view('ServiceRequest.index', compact('service_requests'));
         }
+        return redirect()->route('login');
     }
 
     /**
@@ -34,7 +35,7 @@ class ServiceRequestController extends Controller
     public function create()
     {
         if (Auth::user()->hasRole('customer')) {
-            return view('ServiceQuotation.create');
+            return view('ServiceRequest.create');
         }
     }
 
@@ -49,7 +50,7 @@ class ServiceRequestController extends Controller
         $request->validate([
             'device_name' => 'required|string|max:255',
             'device_description' => 'required|string|max:255',
-            'picture' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
+            //'picture' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
         ]);
 
         $service_request = ServiceRequest::create([
@@ -70,15 +71,16 @@ class ServiceRequestController extends Controller
      */
     public function show(ServiceRequest $service_request)
     {
-        if (Auth::user()->hasRole('customer')) {
+        if (Auth::check() && Auth::user()->hasRole('customer')) {
             if ($service_request->customer->id == Auth::user()->customer->id) {
-                return view('ServiceQuotation.show', compact('service_request'));
+                return view('ServiceRequest.show', compact('service_request'));
             }else {
                 return redirect()->route('service_request.index');
             }
-        }elseif (Auth::user()->hasRole('staff')) {
-            return view('ServiceQuotation.show',compact('service_request'));
+        }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
+            return view('ServiceRequest.show',compact('service_request'));
         }
+        return redirect()->route('login');
     }
 
     /**
@@ -87,7 +89,7 @@ class ServiceRequestController extends Controller
      * @param  \App\Models\ServiceRequest  $serviceRequest
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceRequest $serviceRequest)
+    public function edit(ServiceRequest $service_request)
     {
         //
     }
@@ -99,7 +101,7 @@ class ServiceRequestController extends Controller
      * @param  \App\Models\ServiceRequest  $serviceRequest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ServiceRequest $serviceRequest)
+    public function update(Request $request, ServiceRequest $service_request)
     {
         //
     }
@@ -110,8 +112,22 @@ class ServiceRequestController extends Controller
      * @param  \App\Models\ServiceRequest  $serviceRequest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceRequest $serviceRequest)
+    public function destroy(ServiceRequest $service_request)
     {
         //
+    }
+
+    public function staff_approve(ServiceRequest $service_request)
+    {
+        $service_request->approval_status = 'yes';
+        $service_request->save();
+        return redirect()->route('quotation.create', $service_request);
+    }
+
+    public function staff_not_approve(ServiceRequest $service_request)
+    {
+        $service_request->approval_status = 'no';
+        $service_request->save();
+        return redirect()->route('service_request.show', $service_request);
     }
 }

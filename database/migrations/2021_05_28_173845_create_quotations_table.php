@@ -15,7 +15,7 @@ class CreateQuotationsTable extends Migration
     {
         Schema::create('quotations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('request_id')->constrained('service_requests');
+            $table->foreignId('service_request_id')->constrained();
             $table->string('description');
             $table->float('cost');
             $table->timestamps();

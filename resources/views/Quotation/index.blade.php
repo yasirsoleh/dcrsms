@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Service Request') }}
+            {{ __('Quotation') }}
         </h2>
     </x-slot>
 
@@ -18,18 +18,26 @@
                                 <tr>
                                     <th>No</th> 
                                     <th>Device Name</th> 
-                                    <th>Approval</th>
+                                    <th>Customer Approval</th>
                                     <th>Action</th>
                                 </tr>
                             </thead> 
                             <tbody>
                                 @if ($service_requests !=null)
-                                    @foreach ($service_requests as $item)
+                                    @foreach ($service_requests as $service_request)
                                     <tr>
-                                        <th>{{ $item->id }}</th> 
-                                        <td>{{ $item->device_name }}</td> 
-                                        <td>{{ $item->approval_status }}</td> 
-                                        <td><a class="btn btn-sm" href="service_request/{{ $item->id }}">View</a>
+                                        <th>{{ $service_request->id }}</th> 
+                                        <td>{{ $service_request->device_name }}</td> 
+                                        <td>
+                                            @if ($service_request->customer_approval == null)
+                                                Waiting Customer Approval
+                                            @elseif ($service_request->customer_approval == 'yes')
+                                                Approved by Customer
+                                            @elseif ($service_request->customer_approval == 'no')
+                                                Not Approved by Customer
+                                            @endif
+                                        </td> 
+                                        <td><a class="btn btn-sm" href="{{ route('quotation.show', [$service_request]) }}}}">View</a></td>
                                     </tr>
                                     @endforeach
                                 @else

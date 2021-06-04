@@ -25,7 +25,7 @@ class ServiceRequest extends Model
 
     public function quotations()
     {
-        return $this->hasMany(Quotation::class)->withDefault();
+        return $this->hasMany(Quotation::class);
         //return Quotation::where('service_request_id', $this->id);
     }
 
