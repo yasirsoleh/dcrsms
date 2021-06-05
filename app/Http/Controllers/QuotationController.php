@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class QuotationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if (Auth::check() && Auth::user()->hasRole('customer')) {
@@ -28,23 +23,11 @@ class QuotationController extends Controller
         return redirect()->route('login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(ServiceRequest $service_request)
     {
-        //dd($service_request);
         return view('Quotation.create',compact('service_request'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -57,18 +40,12 @@ class QuotationController extends Controller
             'cost' => $request->cost,
         ]);
 
-        return $quotation;
+        return redirect()->route('quotation.show', ['service_request' => $request->service_request_id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Quotation  $quotation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Quotation $quotation)
+    public function show(ServiceRequest $service_request)
     {
-        //
+        return view('Quotation.show',compact('service_request'));
     }
 
     /**

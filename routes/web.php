@@ -134,7 +134,7 @@ Route::prefix('/quotation')->group(function () {
         ->name('quotation.create');
     Route::post('/', [QuotationController::class, 'store'])
         ->name('quotation.store');
-    Route::get('/{quotation}', [QuotationController::class, 'show'])
+    Route::get('/{service_request}', [QuotationController::class, 'show'])
         ->name('quotation.show');
     Route::get('/{quotation}/edit', [QuotationController::class, 'edit'])
         ->name('quotation.edit');

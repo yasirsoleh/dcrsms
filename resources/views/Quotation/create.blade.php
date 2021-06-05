@@ -14,36 +14,15 @@
                         <form action="{{ route('quotation.store') }}" method="POST">
                             @csrf
                             <label class="label" for="device_name">Device Name</label>
+                            <input type="text" name="service_request_id" placeholder="Service Request ID" class="input input-bordered" value="{{ $service_request->id }}" hidden>
                             <input type="text" name="device_name" placeholder="Device Name" class="input input-bordered" value="{{ $service_request->device_name }}" disabled>
                             <label class="label" for="device_description">Symptom or the damage information</label>
-                            <textarea class="textarea textarea-bordered min-w-full" name="device_description" style="min-height:300px" placeholder="Input Symptom" disabled>{{ $service_request->device_description }}</textarea>
-                            <label class="label">Quotations</label>
-                            <div class="">
-                            @if ($service_request->quotations != null)
-                                <table class="table w-full">
-                                    <thead>
-                                        <th>ID</th>
-                                        <th>Description</th>
-                                        <th>Cost (RM)</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($service_request->quotations as $quotation)
-                                            <tr>
-                                                <td>{{ $quotation->id }}</td>
-                                                <td>{{ $quotation->description }}</td>
-                                                <td>{{ $quotation->cost }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="2">Total Cost</td>
-                                            <td>{{ $service_request->quotations->sum() }}</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            @endif
-                            </div>
+                            <textarea class="textarea textarea-bordered min-w-full" name="device_description" style="min-height:100px" placeholder="Input Symptom" disabled>{{ $service_request->device_description }}</textarea>
+                            <label class="label" for="device_name">Description</label>
+                            <textarea class="textarea textarea-bordered min-w-full" name="description" style="min-height:100px" placeholder="Quotation Description"></textarea>
+                            <label class="label" for="device_name">Cost</label>
+                            <input type="number" name="cost" placeholder="Cost" class="input input-bordered">
+                            <br><input class="btn mt-3" type="submit">
                         </form>
                     </div>                      
                 </div>

@@ -10,9 +10,6 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
-                        @if (Auth::user()->hasRole('customer'))
-                            <a href="{{ route('service_request.create') }}" class="btn mb-3">New</a> 
-                        @endif
                         <table class="table w-full">
                             <thead>
                                 <tr>
@@ -37,12 +34,14 @@
                                                 Not Approved by Customer
                                             @endif
                                         </td> 
-                                        <td><a class="btn btn-sm" href="{{ route('quotation.show', [$service_request]) }}}}">View</a></td>
+                                        <td>
+                                            <a class="btn btn-sm" href="{{ route('quotation.show', ['service_request'=>$service_request]) }}">View</a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td class="text-center text-xl" colspan="3">You have no request</td>
+                                        <td class="text-center text-xl" colspan="3">You have no quotation</td>
                                     </tr>
                                 @endif
                             </tbody>

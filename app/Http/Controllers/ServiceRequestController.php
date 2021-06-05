@@ -121,7 +121,7 @@ class ServiceRequestController extends Controller
     {
         $service_request->approval_status = 'yes';
         $service_request->save();
-        return redirect()->route('quotation.create', $service_request);
+        return redirect()->route('quotation.show', $service_request);
     }
 
     public function staff_not_approve(ServiceRequest $service_request)
