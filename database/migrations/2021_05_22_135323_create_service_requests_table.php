@@ -18,10 +18,10 @@ class CreateServiceRequestsTable extends Migration
             $table->foreignId('customer_id')->constrained();
             $table->string('device_name');
             $table->string('device_description');
-            $table->binary('picture');
-            $table->enum('approval_status', ['yes', 'no'])->nullable();
+            $table->binary('picture')->nullable();
+            $table->enum('approval_status', ['waiting','yes', 'no'])->nullable();
             $table->string('rejection_reason')->nullable();
-            $table->enum('customer_approval', ['yes', 'no'])->nullable();
+            $table->enum('customer_approval', ['waiting','yes', 'no'])->nullable();
             $table->timestamps();
         });
     }

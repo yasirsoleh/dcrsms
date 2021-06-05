@@ -30,6 +30,16 @@ class Customer extends Model
         //return User::firstWhere('id', $this->user_id);
     }
 
+    public function pick_ups()
+    {
+        return $this->hasManyThrough(PickUp::class,ServiceRequest::class);
+    }
+
+    public function deliveries()
+    {
+        return $this->hasManyThrough(Delivery::class,ServiceRequest::class);
+    }
+
     public function repair()
     {
         //

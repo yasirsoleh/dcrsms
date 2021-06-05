@@ -42,8 +42,11 @@
                                 </table>
                             @endif
                             </div>
-                            @if (Auth::user()->hasRole('staff'))
+                            @if (Auth::user()->hasRole('staff') && $service_request->customer_approval == null)
                                 <a class="btn mt-3" href="{{ route('quotation.create', ['service_request'=>$service_request]) }}">Add Quotation</a>
+                            @elseif (Auth::user()->hasRole('customer'))
+                                <a class="btn" href="{{ route('service_request.customer_approve', ['service_request'=>$service_request]) }}">Accept</a>
+                                <a class="btn" href="{{ route('service_request.customer_not_approve', ['service_request'=>$service_request]) }}">Reject</a>
                             @endif
                         </form>
                     </div>                      

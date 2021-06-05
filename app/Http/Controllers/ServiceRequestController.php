@@ -130,4 +130,18 @@ class ServiceRequestController extends Controller
         $service_request->save();
         return redirect()->route('service_request.show', $service_request);
     }
+
+    public function customer_approve(ServiceRequest $service_request)
+    {
+        $service_request->customer_approval = 'yes';
+        $service_request->save();
+        return redirect()->route('pick_up.create', $service_request);
+    }
+
+    public function customer_not_approve(ServiceRequest $service_request)
+    {
+        $service_request->customer_approval = 'no';
+        $service_request->save();
+        return redirect()->route('quotation.index');
+    }
 }
