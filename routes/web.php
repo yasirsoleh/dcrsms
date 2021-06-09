@@ -125,6 +125,10 @@ Route::prefix('/service_request')->group(function () {
         ->name('service_request.staff_approve');
     Route::get('/{service_request}/staff_not_approve', [ServiceRequestController::class,'staff_not_approve'])
         ->name('service_request.staff_not_approve');
+    Route::get('/{service_request}/customer_approve', [ServiceRequestController::class,'customer_approve'])
+        ->name('service_request.customer_approve');
+    Route::get('/{service_request}/customer_not_approve', [ServiceRequestController::class,'customer_not_approve'])
+        ->name('service_request.customer_not_approve');
 });
 
 Route::prefix('/quotation')->group(function () {
@@ -134,7 +138,7 @@ Route::prefix('/quotation')->group(function () {
         ->name('quotation.create');
     Route::post('/', [QuotationController::class, 'store'])
         ->name('quotation.store');
-    Route::get('/{quotation}', [QuotationController::class, 'show'])
+    Route::get('/{service_request}', [QuotationController::class, 'show'])
         ->name('quotation.show');
     Route::get('/{quotation}/edit', [QuotationController::class, 'edit'])
         ->name('quotation.edit');
@@ -147,7 +151,7 @@ Route::prefix('/quotation')->group(function () {
 Route::prefix('/pick_up')->group(function () {
     Route::get('/', [PickUpController::class, 'index'])
         ->name('pick_up.index');
-    Route::get('/create', [PickUpController::class, 'create'])
+    Route::get('/create/{service_request}', [PickUpController::class, 'create'])
         ->name('pick_up.create');
     Route::post('/', [PickUpController::class, 'store'])
         ->name('pick_up.store');
@@ -159,12 +163,14 @@ Route::prefix('/pick_up')->group(function () {
         ->name('pick_up.update');
     Route::delete('/{pick_up}', [PickUpController::class, 'destroy'])
         ->name('pick_up.delete');
+    Route::get('/{pick_up}/rider_accept}', [PickUpController::class, 'rider_accept'])
+        ->name('pick_up.rider_accept');
 });
 
 Route::prefix('/repair')->group(function () {
     Route::get('/', [RepairController::class, 'index'])
         ->name('repair.index');
-    Route::get('/create', [RepairController::class, 'create'])
+    Route::get('/create/{service_request}', [RepairController::class, 'create'])
         ->name('repair.create');
     Route::post('/', [RepairController::class, 'store'])
         ->name('repair.store');
@@ -181,7 +187,7 @@ Route::prefix('/repair')->group(function () {
 Route::prefix('/delivery')->group(function () {
     Route::get('/', [DeliveryController::class, 'index'])
         ->name('delivery.index');
-    Route::get('/create', [DeliveryController::class, 'create'])
+    Route::get('/create/{service_request}', [DeliveryController::class, 'create'])
         ->name('delivery.create');
     Route::post('/', [DeliveryController::class, 'store'])
         ->name('delivery.store');
@@ -198,7 +204,7 @@ Route::prefix('/delivery')->group(function () {
 Route::prefix('/payment')->group(function () {
     Route::get('/', [PaymentController::class, 'index'])
         ->name('payment.index');
-    Route::get('/create', [PaymentController::class, 'create'])
+    Route::get('/create/{service_request}', [PaymentController::class, 'create'])
         ->name('payment.create');
     Route::post('/', [PaymentController::class, 'store'])
         ->name('payment.store');

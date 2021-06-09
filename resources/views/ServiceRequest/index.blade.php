@@ -37,7 +37,7 @@
                                                 Not Approved by Staff
                                             @endif
                                         </td> 
-                                        <td><a class="btn btn-sm" href="{{ route('service_request.show', [$service_request]) }}}}">View</a></td>
+                                        <td><a class="btn btn-sm" href="{{ route('service_request.show', [$service_request]) }}">View</a></td>
                                     </tr>
                                     @endforeach
                                 @else
