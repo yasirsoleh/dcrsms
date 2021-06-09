@@ -155,7 +155,7 @@ Route::prefix('/pick_up')->group(function () {
         ->name('pick_up.create');
     Route::post('/', [PickUpController::class, 'store'])
         ->name('pick_up.store');
-    Route::get('/{service_request}', [PickUpController::class, 'show'])
+    Route::get('/{pick_up}', [PickUpController::class, 'show'])
         ->name('pick_up.show');
     Route::get('/{pick_up}/edit', [PickUpController::class, 'edit'])
         ->name('pick_up.edit');
@@ -163,6 +163,8 @@ Route::prefix('/pick_up')->group(function () {
         ->name('pick_up.update');
     Route::delete('/{pick_up}', [PickUpController::class, 'destroy'])
         ->name('pick_up.delete');
+    Route::get('/{pick_up}/rider_accept}', [PickUpController::class, 'rider_accept'])
+        ->name('pick_up.rider_accept');
 });
 
 Route::prefix('/repair')->group(function () {

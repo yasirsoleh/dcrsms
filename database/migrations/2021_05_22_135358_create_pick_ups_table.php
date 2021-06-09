@@ -15,7 +15,7 @@ class CreatePickUpsTable extends Migration
     {
         Schema::create('pick_ups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rider_id')->constrained()->nullable();
+            $table->foreignId('rider_id')->nullable()->constrained();
             $table->foreignId('service_request_id')->constrained();
             $table->string('address');
             $table->enum('status', ['waiting_rider', 'picking_up','completed','failed']);

@@ -26,18 +26,24 @@
                                         <th>{{ $pick_up->id }}</th> 
                                         <td>{{ $pick_up->address }}</td> 
                                         <td>
-                                            @if ($pick_up->customer_approval == 'waiting_rider')
+                                            @if ($pick_up->status == 'waiting_rider')
                                                 Waiting Rider
-                                            @elseif ($pick_up->customer_approval == 'picking_up')
+                                            @elseif ($pick_up->status == 'picking_up')
                                                 Picking Up
-                                            @elseif ($pick_up->customer_approval == 'completed')
+                                            @elseif ($pick_up->status == 'completed')
                                                 Completed
-                                            @elseif ($pick_up->customer_approval == 'failed')
+                                            @elseif ($pick_up->status == 'failed')
                                                 Failed
                                             @endif
                                         </td> 
                                         <td>
                                             <a class="btn btn-sm" href="{{ route('pick_up.show', ['pick_up'=>$pick_up]) }}">View</a>
+                                            @if (Auth::user()->hasRole('rider'))
+                                                <a class="btn btn-sm" href="{{ route('pick_up.rider_accept', ['pick_up'=>$pick_up]) }}">Accept</a>
+                                                @if ($pick_up->rider_id == Auth::user()->rider->id)
+                                                    <a class="btn btn-sm" href="{{ route('pick_up.edit', ['pick_up'=>$pick_up]) }}">Edit</a>
+                                                @endif
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

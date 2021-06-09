@@ -66,7 +66,7 @@ class PickUpController extends Controller
      */
     public function show(PickUp $pick_up)
     {
-        //
+        return view('PickUp.show', compact('pick_up'));
     }
 
     /**
@@ -75,9 +75,9 @@ class PickUpController extends Controller
      * @param  \App\Models\PickUp  $pickUp
      * @return \Illuminate\Http\Response
      */
-    public function edit(PickUp $pickUp)
+    public function edit(PickUp $pick_up)
     {
-        //
+        return view('PickUp.edit', compact('pick_up'));
     }
 
     /**
@@ -87,9 +87,11 @@ class PickUpController extends Controller
      * @param  \App\Models\PickUp  $pickUp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PickUp $pickUp)
+    public function update(Request $request, PickUp $pick_up)
     {
-        //
+        $pick_up->status = $request->status;
+        $pick_up->save();
+        return redirect()->route('pick_up.show', ['pick_up' => $pick_up]);
     }
 
     /**
@@ -98,8 +100,16 @@ class PickUpController extends Controller
      * @param  \App\Models\PickUp  $pickUp
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PickUp $pickUp)
+    public function destroy(PickUp $pick_up)
     {
-        //
+        
+    }
+
+    public function rider_accept(PickUp $pick_up)
+    {
+        $pick_up->rider_id = Auth::user()->rider->id;
+        $pick_up->status = 'picking_up';
+        $pick_up->save();
+        return redirect()->back();
     }
 }
