@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Repair;
 use App\Models\RepairItem;
 use App\Models\ServiceRequest;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,7 +67,7 @@ class RepairController extends Controller
         $repair->save();
         if ($repair->status == 'repaired') {
             Payment::create([
-                'repair_id' => $repair->id,
+                'service_request_id' => $repair->service_request->id,
                 'amount' => $repair->repair_items->sum('cost'),
                 'status' => 'pending',
             ]);

@@ -19,21 +19,25 @@
                             <form action="{{ route('repair.update', ['repair'=>$repair]) }}" method="POST">
                                 @method('PUT')
                                 @csrf
-                                <select class="select select-bordered w-full max-w-xs" name="status">
-                                    <option value="pending" {{ ( $repair->status == 'pending') ? 'selected' : '' }}> 
-                                        Pending
-                                    </option>
-                                    <option value="on_progress" {{ ( $repair->status == 'on_progress') ? 'selected' : '' }}> 
-                                        On Progress
-                                    </option>
-                                    <option value="repaired" {{ ( $repair->status == 'repaired') ? 'selected' : '' }}> 
-                                        Repaired
-                                    </option>
-                                    <option value="cannot_be_repaired" {{ ( $repair->status == 'cannot_be_repaired') ? 'selected' : '' }}> 
-                                        Cannot Be Repaired
-                                    </option>
-                                </select>
-                                <input class="btn" type="submit" value="Save">
+                                @if ($repair->status != 'repaired')
+                                    <select class="select select-bordered w-full max-w-xs" name="status">
+                                        <option value="pending" {{ ( $repair->status == 'pending') ? 'selected' : '' }}> 
+                                            Pending
+                                        </option>
+                                        <option value="on_progress" {{ ( $repair->status == 'on_progress') ? 'selected' : '' }}> 
+                                            On Progress
+                                        </option>
+                                        <option value="repaired" {{ ( $repair->status == 'repaired') ? 'selected' : '' }}> 
+                                            Repaired
+                                        </option>
+                                        <option value="cannot_be_repaired" {{ ( $repair->status == 'cannot_be_repaired') ? 'selected' : '' }}> 
+                                            Cannot Be Repaired
+                                        </option>
+                                    </select>
+                                    <input class="btn" type="submit" value="Save">
+                                @else
+                                <input type="text" name="status" placeholder="Status" class="input input-bordered" value="Repaired" disabled>
+                                @endif
                             </form>
                             <label class="label mt-3">Repair Cost</label>
                             <div class="">

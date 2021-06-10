@@ -15,10 +15,10 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('repair_id')->constrained();
+            $table->foreignId('service_request_id')->constrained();
             $table->enum('type', ['cash_on_delivery', 'paypal'])->nullable();
             $table->float('amount');
-            $table->enum('status', ['pending', 'received']);
+            $table->enum('status', ['pending', 'received','failed']);
             $table->timestamps();
         });
     }

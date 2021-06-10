@@ -29,7 +29,7 @@
                                         <th>{{ $service_request->id }}</th> 
                                         <td>{{ $service_request->device_name }}</td> 
                                         <td>
-                                            @if ($service_request->approval_status == null)
+                                            @if ($service_request->approval_status == 'waiting')
                                                 Waiting Staff Approval
                                             @elseif ($service_request->approval_status == 'yes')
                                                 Approved by Staff

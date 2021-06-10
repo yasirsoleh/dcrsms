@@ -21,13 +21,11 @@ class Customer extends Model
     public function service_requests()
     {
         return $this->hasMany(ServiceRequest::class)->withDefault();
-        //return ServiceRequest::where('customer_id', $this->id);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
-        //return User::firstWhere('id', $this->user_id);
     }
 
     public function pick_ups()
@@ -40,9 +38,14 @@ class Customer extends Model
         return $this->hasManyThrough(Delivery::class,ServiceRequest::class);
     }
 
-    public function repair()
+    public function repairs()
     {
-        //
+        return $this->hasManyThrough(Repair::class, ServiceRequest::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasManyThrough(Payment::class, ServiceRequest::class);
     }
 
 }

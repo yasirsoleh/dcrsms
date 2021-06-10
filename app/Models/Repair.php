@@ -22,4 +22,9 @@ class Repair extends Model
     {
         return $this->belongsTo(ServiceRequest::class);
     }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }
