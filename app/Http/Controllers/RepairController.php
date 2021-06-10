@@ -13,7 +13,7 @@ class RepairController extends Controller
     public function index()
     {
         if (Auth::user()->hasRole('customer')) {
-            $repairs = Auth::user()->customer()->repair();
+            $repairs = Auth::user()->customer->repairs;
             return view('Repair.index', compact('repairs'));
         }elseif (Auth::user()->hasRole('staff')) {
             $repairs = Repair::all();

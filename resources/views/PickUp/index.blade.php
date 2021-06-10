@@ -39,7 +39,9 @@
                                         <td>
                                             <a class="btn btn-sm" href="{{ route('pick_up.show', ['pick_up'=>$pick_up]) }}">View</a>
                                             @if (Auth::user()->hasRole('rider'))
-                                                <a class="btn btn-sm" href="{{ route('pick_up.rider_accept', ['pick_up'=>$pick_up]) }}">Accept</a>
+                                                @if ($pick_up->status == 'waiting_rider')
+                                                    <a class="btn btn-sm" href="{{ route('pick_up.rider_accept', ['pick_up'=>$pick_up]) }}">Accept</a>
+                                                @endif
                                                 @if ($pick_up->rider_id == Auth::user()->rider->id)
                                                     <a class="btn btn-sm" href="{{ route('pick_up.edit', ['pick_up'=>$pick_up]) }}">Edit</a>
                                                 @endif

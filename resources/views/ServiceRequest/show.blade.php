@@ -18,7 +18,7 @@
                             <label class="label" for="device_description">Symptom or the damage information</label>
                             <textarea class="textarea textarea-bordered min-w-full" name="device_description" style="min-height:300px" placeholder="Input Symptom" disabled>{{ $service_request->device_description }}</textarea>
                             <div class="justify-items-end block">
-                            @if (Auth::user()->hasRole('staff'))
+                            @if (Auth::user()->hasRole('staff') && $service_request->approval_status == 'waiting')
                                 <label class="label" for="device_description">Approval</label>
                                 <a class="btn" href="{{ route('service_request.staff_approve', $service_request) }}">Accept</a>
                                 <a class="btn" href="{{ route('service_request.staff_not_approve', $service_request) }}">Reject</a>

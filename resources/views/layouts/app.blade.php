@@ -13,6 +13,10 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/jq-3.3.1/dt-1.10.25/r-2.2.9/datatables.min.css"/>
+ 
+        <script type="text/javascript" src="https://cdn.datatables.net/v/zf/jq-3.3.1/dt-1.10.25/r-2.2.9/datatables.min.js"></script>
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
@@ -32,5 +36,13 @@
                 {{ $slot }}
             </main>
         </div>
+        <script>
+            $(document).ready( function () {
+                $('#myTable').DataTable({
+                    "paging": false,
+                    "bInfo": false, // hide showing entries
+                });
+            } );
+        </script>
     </body>
 </html>

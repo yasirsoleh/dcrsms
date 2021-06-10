@@ -10,10 +10,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
-                        <table class="table w-full">
+                        <table class="table w-full" id="myTable">
                             <thead>
                                 <tr>
-                                    <th>No</th> 
+                                    <th>Service Request ID</th>
                                     <th>Name</th> 
                                     <th>Status</th>
                                     <th>Action</th>
@@ -23,7 +23,7 @@
                                 @if ($repairs !=null)
                                     @foreach ($repairs as $repair)
                                     <tr>
-                                        <th>{{ $repair->id }}</th> 
+                                        <td>{{ $repair->service_request->id }}</td>
                                         <td>{{ $repair->service_request->device_name }}</td> 
                                         <td>
                                             @if ($repair->status == 'pending')
@@ -46,7 +46,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td class="text-center text-xl" colspan="3">You have no quotation</td>
+                                        <td class="text-center text-xl" colspan="4">You have no repair</td>
                                     </tr>
                                 @endif
                             </tbody>
