@@ -15,7 +15,7 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rider_id');
+            $table->foreignId('rider_id')->nullable()->constrained();
             $table->foreignId('service_requests_id')->constrained();
             $table->string('address');
             $table->enum('cash_on_delivery', ['yes', 'no']);

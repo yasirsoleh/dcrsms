@@ -72,7 +72,7 @@
 
                     <x-slot name="content">
 
-                        <x-dropdown-link href="{{ route('account') }}">
+                        <x-dropdown-link href="{{ route('account.index') }}">
                             {{ __('Manage Account') }}
                         </x-dropdown-link>
 

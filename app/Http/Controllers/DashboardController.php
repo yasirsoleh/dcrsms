@@ -15,15 +15,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->hasRole('customer')) {
+        if (Auth::check() && Auth::user()->hasRole('customer')) {
             $data = Auth::user()->customer;
             return view('dashboard', compact('data'));
-        }elseif (Auth::user()->hasRole('rider')) {
+        }elseif (Auth::check() && Auth::user()->hasRole('rider')) {
             $data = Auth::user()->rider;
             return view('dashboard', compact('data'));
-        }elseif (Auth::user()->hasRole('staff')) {
+        }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
             $data = Auth::user()->staff;
             return view('dashboard',compact('data'));
         }
+        return redirect()->route('login');
     }
 }

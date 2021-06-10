@@ -13,10 +13,10 @@ class RepairController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->hasRole('customer')) {
+        if (Auth::check() && Auth::user()->hasRole('customer')) {
             $repairs = Auth::user()->customer->repairs;
             return view('Repair.index', compact('repairs'));
-        }elseif (Auth::user()->hasRole('staff')) {
+        }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
             $repairs = Repair::all();
             return view('Repair.index', compact('repairs'));
         }
@@ -70,6 +70,13 @@ class RepairController extends Controller
                 'service_request_id' => $repair->service_request->id,
                 'amount' => $repair->repair_items->sum('cost'),
                 'status' => 'pending',
+            ]);
+        }else{
+            Delivery::create([
+                'service_request_id' => $repair->service_request->id,
+                'address' => $repair->service_request->pick_up->address,
+                'status' => 'waiting_rider',
+                'rider_id' => null,
             ]);
         }
         return redirect()->back();

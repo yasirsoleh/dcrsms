@@ -30,56 +30,11 @@ class PaymentController extends Controller
         return redirect()->route('login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Payment $payment)
     {
         return view('Payment.edit', compact('payment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Payment $payment)
     {
         try {
@@ -92,20 +47,15 @@ class PaymentController extends Controller
             ]);
             $payment->status = 'received';
             $payment->save;
-            return back()->with('success-message', 'Thank you! Your payment has been excepted');
+            Delivery::create([
+                'service_request_id' => $repair->service_request->id,
+                'address' => $repair->service_request->pick_up->address,
+                'status' => 'waiting_rider',
+                'rider_id' => null,
+            ]);
+            return redirect()->route('payment.index')->with('success-message', 'Thank you! Your payment has been excepted');
         } catch (CardErrorException $e) {
-            return back()->withErrors('Error!', $e->getMessage());
+            return redirect()->route('payment.index')->withErrors('Error!', $e->getMessage());
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
     }
 }

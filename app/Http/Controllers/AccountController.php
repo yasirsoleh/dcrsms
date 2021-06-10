@@ -12,37 +12,40 @@ class AccountController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->hasRole('customer')) {
-            $customer = Auth::user()->customer();
-            return view('Account.CustomerAccount', $customer);
-        }elseif (Auth::user()->hasRole('rider')) {
-            $rider = Auth::user()->rider();
-            return view('Account.RiderAccount', $rider);
-        }elseif (Auth::user()->hasRole('staff')) {
-            $staff = Auth::user()->staff();
-            return view('Account.StaffAccount',$staff);
+        if (Auth::check() && Auth::user()->hasRole('customer')) {
+            $customer = Auth::user()->customer;
+            return view('Account.CustomerAccount', compact('customer'));
+        }elseif (Auth::check() && Auth::user()->hasRole('rider')) {
+            $rider = Auth::user->rider;
+            return view('Account.RiderAccount', compact('rider'));
+        }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
+            $staff = Auth::user()->staff;
+            return view('Account.StaffAccount',compact('staff'));
         }
+        return redirect()->route('login');
     }
 
     public function viewAllCustomerAccount()
     {
-        if (Auth::user()->hasRole('staff')) {
+        if (Auth::check() && Auth::user()->hasRole('staff')) {
             $customers = Customer::all();
-            return view('Account.ListCustomerAccount', $customers);
+            return view('Account.ListCustomerAccount', compact('customers'));
         }
+        return redirect()->route('login');
     }
 
     public function viewAllRiderAccount()
     {
-        if (Auth::user()->hasRole('staff')) {
+        if (Auth::check() && Auth::user()->hasRole('staff')) {
             $riders = Rider::all();
-            return view('Account.ListRiderAccount', $riders);
+            return view('Account.ListRiderAccount', compact('riders'));
         }
+        return redirect()->route('login');
     }
     
-    public function editAccount(Request $request)
+    public function update(Request $request)
     {
-        if (Auth::user()->hasRole('customer')) {
+        if (Auth::check() && Auth::user()->hasRole('customer')) {
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -53,12 +56,12 @@ class AccountController extends Controller
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
-            $customer = $user->customer();
+            $customer = $user->customer;
             $customer->first_name = $request->first_name;
             $customer->last_name = $request->last_name;
             $customer->address = $request->address;
             $customer->save();
-        }elseif (Auth::user()->hasRole('rider')) {
+        }elseif (Auth::check() && Auth::user()->hasRole('rider')) {
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -71,7 +74,7 @@ class AccountController extends Controller
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
-            $rider = $user->rider();
+            $rider = $user->rider;
             $rider->first_name = $request->first_name;
             $rider->last_name = $request->last_name;
             $rider->address = $request->address;
@@ -79,7 +82,7 @@ class AccountController extends Controller
             $rider->license = $request->file('license')->store('licenseFile');
             $rider->save();
 
-        }elseif (Auth::user()->hasRole('staff')) {
+        }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -90,18 +93,61 @@ class AccountController extends Controller
             $user->email = $request->email;
             $user->Hash::make($request->password);
             $user->save();
-            $staff = $user->staff();
+            $staff = $user->staff;
             $staff->first_name = $request->first_name;
             $staff->last_name = $request->last_name;
             $staff->save();
         }
+        return redirect()->route('login');
     }
 
-    public function changeStatus(Request $request)
+    public function customer_ban(Customer $customer)
     {
-        if (Auth::user()->hasRole('staff')) {
-            $user = User::find($request->id);
-            $user->status = $request->status;
+        if (Auth::check() && Auth::user()->hasRole('staff')) {
+            $customer->status = 'banned';
+            $customer->save();
+            return redirect()->back();
         }
+        return redirect()->route('login');
+    }
+
+    public function customer_unban(Customer $customer)
+    {
+        if (Auth::check() && Auth::user()->hasRole('staff')) {
+            $customer->status = 'not_banned';
+            $customer->save();
+            return redirect()->back();
+        }
+        return redirect()->route('login');
+    }
+
+    public function rider_ban(Rider $rider)
+    {
+        if (Auth::check() && Auth::user()->hasRole('staff')) {
+            $rider->status = 'banned';
+            $rider->save();
+            return redirect()->back();
+        }
+        return redirect()->route('login');
+    }
+
+    public function rider_unban(Rider $rider)
+    {
+        if (Auth::check() && Auth::user()->hasRole('staff')) {
+            $rider->status = 'approved';
+            $rider->save();
+            return redirect()->back();
+        }
+        return redirect()->route('login');
+    }
+
+    public function rider_approve(Rider $rider)
+    {
+        if (Auth::check() && Auth::user()->hasRole('staff')) {
+            $rider->status = 'approved';
+            $rider->save();
+            return redirect()->back();
+        }
+        return redirect()->route('login');
     }
 }

@@ -52,13 +52,16 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::prefix('/account')->group(function () {
-    Route::get('/', [AccountController::class, 'viewAccount'])
+    Route::get('/', [AccountController::class, 'index'])
         ->middleware('auth')
-        ->name('account');
+        ->name('account.index');
 
     Route::post('/edit', [AccountController::class,'editAccount'])
         ->middleware('auth')
         ->name('account.edit');
+
+    Route::put('/', [AccountController::class, 'update'])
+        ->name('account.update');
 
     Route::middleware(['auth','role:staff'])->group(function () {
         Route::prefix('/list')->group(function () {
@@ -70,6 +73,17 @@ Route::prefix('/account')->group(function () {
 
         });
     });
+
+    Route::get('/customer/{customer}/ban', [AccountController::class,'customer_ban'])
+        ->name('account.customer_ban');
+    Route::get('/customer/{customer}/unban', [AccountController::class,'customer_unban'])
+        ->name('account.customer_unban');
+    Route::get('/rider/{rider}/ban', [AccountController::class,'rider_ban'])
+        ->name('account.rider_ban');
+    Route::get('/customer/{rider}/unban', [AccountController::class,'rider_unban'])
+        ->name('account.rider_unban');
+    Route::get('/customer/{rider}/approve', [AccountController::class,'rider_unban'])
+        ->name('account.rider_approve');
 });
 
 // Route::prefix('/quotation')->group(function () {

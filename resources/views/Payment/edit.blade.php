@@ -192,23 +192,6 @@
 </head>
 
 <body>
-    @if (session()->has('success_message'))
-        <div class="spacer"></div>
-        <div class="alert alert-success">
-            {{ session()->get('success_message') }}
-        </div>
-    @endif
-
-    @if (count($errors) > 0)
-        <div class="spacer"></div>
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{!! $error !!}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <form action="{{ route('payment.update', ['payment'=>$payment]) }}" method="post" id="payment-form">
         @csrf
         @method('PUT')

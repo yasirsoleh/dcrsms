@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('address');
-            $table->enum('status',['not_banned','banned'])->nullable();
+            $table->enum('status',['not_banned','banned'])->default('not_banned');
             $table->timestamps();
         });
     }

@@ -10,6 +10,23 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
+                        @if (session()->has('success_message'))
+                            <div class="spacer"></div>
+                            <div class="alert alert-success">
+                                {{ session()->get('success_message') }}
+                            </div>
+                        @endif
+                    
+                        @if (count($errors) > 0)
+                            <div class="spacer"></div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{!! $error !!}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <table class="table w-full">
                             <thead>
                                 <tr>

@@ -38,7 +38,7 @@
                                         </td> 
                                         <td>
                                             <a class="btn btn-sm" href="{{ route('repair.show', ['repair'=>$repair]) }}">View</a>
-                                            @if (Auth::user()->hasRole('staff'))
+                                            @if (Auth::user()->hasRole('staff') && $repair->status != 'repaired' && $repair->status != 'cannot_be_repaired')
                                                 <a class="btn btn-sm" href="{{ route('repair.edit', ['repair'=>$repair]) }}">Edit</a>
                                             @endif
                                         </td>
