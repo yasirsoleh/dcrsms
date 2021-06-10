@@ -178,7 +178,7 @@ Route::prefix('/repair')->group(function () {
         ->name('repair.show');
     Route::get('/{repair}/edit', [RepairController::class, 'edit'])
         ->name('repair.edit');
-    Route::put('/{create}', [RepairController::class, 'update'])
+    Route::put('/{repair}', [RepairController::class, 'update'])
         ->name('repair.update');
     Route::delete('/{repair}', [RepairController::class, 'destroy'])
         ->name('repair.delete');

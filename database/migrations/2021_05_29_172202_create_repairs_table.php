@@ -17,6 +17,7 @@ class CreateRepairsTable extends Migration
             $table->id();
             $table->foreignId('service_request_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['pending', 'on_progress', 'repaired','cannot_be_repaired']);
+            $table->string('reason')->nullable();
             $table->timestamps();
         });
     }

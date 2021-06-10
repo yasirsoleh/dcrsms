@@ -99,7 +99,7 @@ class AccountController extends Controller
 
     public function changeStatus(Request $request)
     {
-        if (Auth::user()-hasRole('staff')) {
+        if (Auth::user()->hasRole('staff')) {
             $user = User::find($request->id);
             $user->status = $request->status;
         }

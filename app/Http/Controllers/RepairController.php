@@ -13,17 +13,18 @@ class RepairController extends Controller
     {
         if (Auth::user()->hasRole('customer')) {
             $repairs = Auth::user()->customer()->repair();
-            return view('Repair.CustSearchID', $repairs);
+            return view('Repair.index', compact('repairs'));
         }elseif (Auth::user()->hasRole('staff')) {
             $repairs = Repair::all();
-            return view('Repair.StaffSearchID', $repairs);
+            return view('Repair.index', compact('repairs'));
         }
+        return redirect()->route('login');
     }
 
-    public function store(Request $request, ServiceRequest $serviceRequest)
+    public function store(Request $request, ServiceRequest $service_request)
     {
         $repair = Repair::create([
-            'service_request_id' => $serviceRequest->id,
+            'service_request_id' => $service_request->id,
             'status' => 'pending',
         ]);
         return $repair;
@@ -37,8 +38,7 @@ class RepairController extends Controller
      */
     public function show(Repair $repair)
     {
-        $repair = Repair::find($repair);
-        return view('Repair.CustViewRequest', $repair);
+        return view('Repair.show', compact('repair'));
     }
 
     /**
@@ -49,7 +49,7 @@ class RepairController extends Controller
      */
     public function edit(Repair $repair)
     {
-        
+        return view('Repair.edit', compact('repair'));
     }
 
     /**
@@ -61,6 +61,15 @@ class RepairController extends Controller
      */
     public function update(Request $request, Repair $repair)
     {
-        //
+        $repair->status = $request->status;
+        $repair->save();
+        if ($repair->status == 'repaired') {
+            Payment::create([
+                'repair_id' => $repair->id,
+                'amount' => $repair->repair_items->sum('cost'),
+                'status' => 'pending',
+            ]);
+        }
+        return redirect()->back();
     }
 }

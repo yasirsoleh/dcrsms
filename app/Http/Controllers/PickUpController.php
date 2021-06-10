@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PickUp;
 use App\Models\ServiceRequest;
+use App\Models\Repair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,6 +92,12 @@ class PickUpController extends Controller
     {
         $pick_up->status = $request->status;
         $pick_up->save();
+        if ($pick_up->status == 'completed') {
+            Repair::create([
+                'service_request_id' => $pick_up->service_request->id,
+                'status' => 'pending',
+            ]);
+        }
         return redirect()->route('pick_up.show', ['pick_up' => $pick_up]);
     }
 
