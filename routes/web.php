@@ -182,6 +182,12 @@ Route::prefix('/repair')->group(function () {
         ->name('repair.update');
     Route::delete('/{repair}', [RepairController::class, 'destroy'])
         ->name('repair.delete');
+    Route::get('/{repair}/add_item', [RepairController::class, 'add_item'])
+        ->name('repair.add_item');
+    Route::post('/{repair}/add_item', [RepairController::class, 'store_item'])
+        ->name('repair.store_item');
+    Route::delete('/destroy_item/{repair_item}', [RepairController::class, 'destroy_item'])
+        ->name('repair.destroy_item');
 });
 
 Route::prefix('/delivery')->group(function () {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Repair;
+use App\Models\RepairItem;
 use App\Models\ServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,33 @@ class RepairController extends Controller
                 'status' => 'pending',
             ]);
         }
+        return redirect()->back();
+    }
+
+    public function add_item(Repair $repair)
+    {
+        return view('Repair.add_item', compact('repair'));
+    }
+
+    public function store_item(Request $request, Repair $repair)
+    {
+        $request->validate([
+            'description' => 'required|string|max:255',
+            'cost' => 'required|numeric',
+        ]);
+
+        RepairItem::create([
+            'repair_id' => $repair->id,
+            'description' => $request->description,
+            'cost' => $request->cost,
+        ]);
+
+        return redirect()->route('repair.edit', ['repair' => $repair]);
+    }
+
+    public function destroy_item(RepairItem $repair_item)
+    {
+        $repair_item->delete();
         return redirect()->back();
     }
 }

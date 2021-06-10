@@ -13,9 +13,9 @@ class Repair extends Model
         'status',
     ];
 
-    public function repair_item()
+    public function repair_items()
     {
-        return $this->hasMany(RepairItem::class)->withDefault();
+        return $this->hasMany(RepairItem::class);
     }
 
     public function service_request()
