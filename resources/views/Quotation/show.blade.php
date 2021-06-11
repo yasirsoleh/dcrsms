@@ -32,11 +32,13 @@
                                                 <td>{{ $quotation->description }}</td>
                                                 <td>{{ $quotation->cost }}</td>
                                                 <td>
-                                                    <form action="{{ route('quotation.destroy', ['quotation'=>$quotation]) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <input class="btn btn-sm" type="submit" value="Delete">
-                                                    </form>
+                                                    @if ($service_request->customer_approval == null)
+                                                        <form action="{{ route('quotation.destroy', ['quotation'=>$quotation]) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input class="btn btn-sm" type="submit" value="Delete">
+                                                        </form> 
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

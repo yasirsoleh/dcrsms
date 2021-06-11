@@ -66,7 +66,7 @@ class RepairController extends Controller
     {
         $repair->status = $request->status;
         $repair->save();
-        if ($repair->status == 'repaired') {
+        if ($repair->status == 'repaired' && $repair->repair_items->sum('cost') != 0) {
             Payment::create([
                 'service_request_id' => $repair->service_request->id,
                 'amount' => $repair->repair_items->sum('cost'),
@@ -79,7 +79,14 @@ class RepairController extends Controller
                 'status' => 'waiting_rider',
                 'cash_on_delivery' => 'no',
             ]);
-            return view('Repair.reason', compact('$repair'));
+            return view('Repair.reason', compact('repair'));
+        }elseif ($repair->status == 'repaired' && $repair->repair_items->sum('cost') == 0) {
+            Delivery::create([
+                'service_request_id' => $repair->service_request->id,
+                'address' => $repair->service_request->pick_up->address,
+                'status' => 'waiting_rider',
+                'cash_on_delivery' => 'no',
+            ]);
         }
         return redirect()->back();
     }

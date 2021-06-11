@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Cartalyst\Stripe\Exception\CardErrorException;
@@ -46,10 +47,10 @@ class PaymentController extends Controller
                 'description' => 'Order'
             ]);
             $payment->status = 'received';
-            $payment->save;
+            $payment->save();
             Delivery::create([
-                'service_request_id' => $repair->service_request->id,
-                'address' => $repair->service_request->pick_up->address,
+                'service_request_id' => $payment->service_request->id,
+                'address' => $payment->service_request->pick_up->address,
                 'status' => 'waiting_rider',
                 'rider_id' => null,
             ]);

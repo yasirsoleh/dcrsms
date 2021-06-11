@@ -16,7 +16,7 @@ class AccountController extends Controller
             $customer = Auth::user()->customer;
             return view('Account.CustomerAccount', compact('customer'));
         }elseif (Auth::check() && Auth::user()->hasRole('rider')) {
-            $rider = Auth::user->rider;
+            $rider = Auth::user()->rider;
             return view('Account.RiderAccount', compact('rider'));
         }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
             $staff = Auth::user()->staff;

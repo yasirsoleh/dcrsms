@@ -17,6 +17,7 @@
                     </x-nav-link>
                 </div>
 
+                @if (!Auth::user()->hasRole('rider'))
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('service_request.index')" :active="request()->routeIs('service_request.index')">
                         {{ __('Service Request') }}
@@ -28,13 +29,16 @@
                         {{ __('Quotation') }}
                     </x-nav-link>
                 </div>
-
+                @endif
+                @if (!Auth::user()->hasRole('staff'))
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('pick_up.index')" :active="request()->routeIs('pick_up.index')">
                         {{ __('Pick Up') }}
                     </x-nav-link>
                 </div>
+                @endif
 
+                @if (!Auth::user()->hasRole('rider'))
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('repair.index')" :active="request()->routeIs('repair.index')">
                         {{ __('Repair') }}
@@ -45,13 +49,16 @@
                     <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
                         {{ __('Payment') }}
                     </x-nav-link>
-                </div>
-
+                </div> 
+                @endif
+                @if (!Auth::user()->hasRole('staff'))
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('delivery.index')" :active="request()->routeIs('delivery.index')">
                         {{ __('Delivery') }}
                     </x-nav-link>
-                </div>
+                </div>                  
+                @endif
+
 
             </div>
 
@@ -76,13 +83,15 @@
                             {{ __('Manage Account') }}
                         </x-dropdown-link>
 
+                        @if (Auth::user()->hasRole('staff'))
                         <x-dropdown-link href="{{ route('account.list.customer') }}">
                             {{ __('Manage Customer') }}
                         </x-dropdown-link>
 
                         <x-dropdown-link href="{{ route('account.list.rider') }}">
                             {{ __('Manage Rider') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link>                            
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

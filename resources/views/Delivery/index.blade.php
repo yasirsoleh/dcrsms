@@ -20,30 +20,30 @@
                                 </tr>
                             </thead> 
                             <tbody>
-                                @if ($pick_ups !=null)
-                                    @foreach ($pick_ups as $pick_up)
+                                @if ($deliveries !=null)
+                                    @foreach ($deliveries as $delivery)
                                     <tr>
-                                        <th>{{ $pick_up->id }}</th> 
-                                        <td>{{ $pick_up->address }}</td> 
+                                        <th>{{ $delivery->id }}</th> 
+                                        <td>{{ $delivery->address }}</td> 
                                         <td>
-                                            @if ($pick_up->status == 'waiting_rider')
+                                            @if ($delivery->status == 'waiting_rider')
                                                 Waiting Rider
-                                            @elseif ($pick_up->status == 'picking_up')
-                                                Picking Up
-                                            @elseif ($pick_up->status == 'completed')
+                                            @elseif ($delivery->status == 'delivering')
+                                                Delivering
+                                            @elseif ($delivery->status == 'completed')
                                                 Completed
-                                            @elseif ($pick_up->status == 'failed')
+                                            @elseif ($delivery->status == 'failed')
                                                 Failed
                                             @endif
                                         </td> 
                                         <td>
-                                            <a class="btn btn-sm" href="{{ route('pick_up.show', ['pick_up'=>$pick_up]) }}">View</a>
+                                            <a class="btn btn-sm" href="{{ route('delivery.show', ['delivery'=>$delivery]) }}">View</a>
                                             @if (Auth::user()->hasRole('rider'))
-                                                @if ($pick_up->status == 'waiting_rider')
-                                                    <a class="btn btn-sm" href="{{ route('pick_up.rider_accept', ['pick_up'=>$pick_up]) }}">Accept</a>
+                                                @if ($delivery->status == 'waiting_rider')
+                                                    <a class="btn btn-sm" href="{{ route('delivery.rider_accept', ['delivery'=>$delivery]) }}">Accept</a>
                                                 @endif
-                                                @if ($pick_up->rider_id == Auth::user()->rider->id)
-                                                    <a class="btn btn-sm" href="{{ route('pick_up.edit', ['pick_up'=>$pick_up]) }}">Edit</a>
+                                                @if ($delivery->rider_id == Auth::user()->rider->id)
+                                                    <a class="btn btn-sm" href="{{ route('delivery.edit', ['delivery'=>$delivery]) }}">Edit</a>
                                                 @endif
                                             @endif
                                         </td>
@@ -51,7 +51,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td class="text-center text-xl" colspan="3">You have no quotation</td>
+                                        <td class="text-center text-xl" colspan="3">You have no delivery</td>
                                     </tr>
                                 @endif
                             </tbody>
