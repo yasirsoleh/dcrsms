@@ -16,7 +16,7 @@
                             <label class="label" for="device_name">Device Name</label>
                             <input type="text" name="device_name" placeholder="Device Name" class="input input-bordered" value="{{ $service_request->device_name }}" disabled>
                             <label class="label" for="device_name">Device Name</label>
-                            <img src="{{ Storage::url("storage/app/{$service_request->picture}") }}">
+                            <img src="{{ Storage::url($service_request->picture)}}">
                             <label class="label" for="device_description">Symptom or the damage information</label>
                             <textarea class="textarea textarea-bordered min-w-full" name="device_description" style="min-height:100px" placeholder="Input Symptom" disabled>{{ $service_request->device_description }}</textarea>
                             <div class="justify-items-end block">

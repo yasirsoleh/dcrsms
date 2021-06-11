@@ -33,7 +33,7 @@
                                     <th>Service Request ID</th> 
                                     <th>Amount</th> 
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Pay</th>
                                 </tr>
                             </thead> 
                             <tbody>
@@ -44,8 +44,11 @@
                                         <td>{{ $payment->amount }}</td> 
                                         <td>{{ $payment->status }}</td>
                                         <td>
-                                            @if ($payment->status != 'received' && Auth::user()->hasRole('customer'))
-                                                <a class="btn btn-sm" href="{{ route('payment.edit', ['payment'=> $payment]) }}">Pay</a></td>
+                                            @if ($payment->status != 'received' && Auth::user()->hasRole('customer') && $payment->type != 'cash_on_delivery')
+                                                <a class="btn btn-sm" href="{{ route('payment.edit', ['payment'=> $payment]) }}">Online</a></td>
+                                            @endif
+                                            @if (Auth::user()->hasRole('customer') && $payment->type != 'online')
+                                                <a class="btn btn-sm" href="{{ route('payment.cash_on_delivery', ['payment'=> $payment]) }}">Cash on Delivery</a></td>
                                             @endif
                                         </td>
                                     </tr>

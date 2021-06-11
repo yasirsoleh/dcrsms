@@ -47,16 +47,32 @@ class PaymentController extends Controller
                 'description' => 'Order'
             ]);
             $payment->status = 'received';
+            $payment->type = 'online';
             $payment->save();
             Delivery::create([
                 'service_request_id' => $payment->service_request->id,
                 'address' => $payment->service_request->pick_up->address,
                 'status' => 'waiting_rider',
                 'rider_id' => null,
+                'cash_on_delivery' => 'no';
             ]);
             return redirect()->route('payment.index')->with('success-message', 'Thank you! Your payment has been excepted');
         } catch (CardErrorException $e) {
             return redirect()->route('payment.index')->withErrors('Error!', $e->getMessage());
         }
+    }
+
+    public function cash_on_delivery(Payment $payment)
+    {
+        $payment->type = 'cash_on_delivery';
+        $payment->save();
+        Delivery::create([
+            'service_request_id' => $payment->service_request->id,
+            'address' => $payment->service_request->pick_up->address,
+            'status' => 'waiting_rider',
+            'rider_id' => null,
+            'cash_on_delivery' => 'yes';
+        ]);
+
     }
 }

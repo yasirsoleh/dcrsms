@@ -86,40 +86,6 @@ Route::prefix('/account')->group(function () {
         ->name('account.rider_approve');
 });
 
-// Route::prefix('/quotation')->group(function () {
-
-//     Route::middleware(['auth'])->group(function () {
-//         Route::get('/', [ServiceQuotationController::class,'index'])
-//             ->name('quotation');
-
-//         Route::get('/{id}', [ServiceQuotationController::class,'show'])
-//             ->name('quotation.show');
-    
-//         Route::post('/', [ServiceQuotationController::class, 'saveServiceRequest'])
-//             ->name('quotation');
-
-//         Route::post('/approval',[ServiceQuotationController::class, 'approval'])
-//             ->name('quotation.approval');
-
-//         Route::get('/{id}/items', [ServiceQuotationController::class, 'getQuotation'])
-//             ->name('quotation.items');
-
-//         Route::get('/{id}', [ServiceQuotationController::class,'addQuotation'])
-//             ->name('quotation.items');
-
-//         Route::post('/{id}/items/delete',[ServiceQuotationController::class, 'deleteQuotation'])
-//             ->name('quotation.items.delete');
-        
-//     });
-// });
-
-// Route::resource('service_request', ServiceRequestController::class);
-// Route::resource('service_request.quotation', QuotationController::class);
-// Route::resource('service_request.pick_up', PickUpController::class);
-// Route::resource('service_request.repair', RepairController::class);
-// Route::resource('service_request.repair.repair_item', RepairItemController::class);
-// Route::resource('service_request.delivery', DeliveryController::class);
-
 Route::prefix('/service_request')->group(function () {
     Route::get('/', [ServiceRequestController::class, 'index'])
         ->name('service_request.index');
@@ -244,4 +210,6 @@ Route::prefix('/payment')->group(function () {
         ->name('payment.update');
     Route::delete('/{repair}', [PaymentController::class, 'destroy'])
         ->name('payment.delete');
+    Route::get('/{payment}/cash_on_delivery', [PaymentController::class, 'cash_on_delivery'])
+        ->name('payment.cash_on_delivery');
 });

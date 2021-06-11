@@ -20,8 +20,8 @@ class CreateRidersTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('address');
-            $table->binary('roadtax');
-            $table->binary('license');
+            $table->string('roadtax');
+            $table->string('license');
             $table->enum('status',['not_approved', 'approved','banned'])->nullable();
             $table->timestamps();
         });
