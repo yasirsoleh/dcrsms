@@ -15,7 +15,7 @@ class CreateQuotationsTable extends Migration
     {
         Schema::create('quotations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_request_id')->constrained();
+            $table->foreignId('service_request_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('description');
             $table->float('cost');
             $table->timestamps();

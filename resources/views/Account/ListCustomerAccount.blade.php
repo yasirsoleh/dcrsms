@@ -30,10 +30,11 @@
                                         <td>{{ $customer->status }}</td>
                                         <td>
                                             @if ($customer->status == 'not_banned')
-                                                <a class="btn btn-sm" href="{{ route('account.customer_ban', ['customer'=> $customer]) }}">Ban</a></td>
+                                                <a class="btn btn-sm" href="{{ route('account.customer_ban', ['customer'=> $customer]) }}">Ban</a>
                                             @else
-                                                <a class="btn btn-sm" href="{{ route('account.customer_unban', ['customer'=> $customer]) }}">Unban</a></td>
+                                                <a class="btn btn-sm" href="{{ route('account.customer_unban', ['customer'=> $customer]) }}">Unban</a>
                                             @endif
+                                            <a class="btn btn-sm" href="{{ route('account.destroy_customer', ['customer'=> $customer]) }}">Delete</a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -54,7 +54,7 @@ class PaymentController extends Controller
                 'address' => $payment->service_request->pick_up->address,
                 'status' => 'waiting_rider',
                 'rider_id' => null,
-                'cash_on_delivery' => 'no';
+                'cash_on_delivery' => 'no',
             ]);
             return redirect()->route('payment.index')->with('success-message', 'Thank you! Your payment has been excepted');
         } catch (CardErrorException $e) {
@@ -71,7 +71,7 @@ class PaymentController extends Controller
             'address' => $payment->service_request->pick_up->address,
             'status' => 'waiting_rider',
             'rider_id' => null,
-            'cash_on_delivery' => 'yes';
+            'cash_on_delivery' => 'yes',
         ]);
 
     }

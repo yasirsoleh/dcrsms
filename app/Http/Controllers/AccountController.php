@@ -138,4 +138,12 @@ class AccountController extends Controller
         }
         return redirect()->route('login');
     }
+
+    public function destroy_customer(Customer $customer)
+    {
+        $user = $customer->user;
+        $customer->delete();
+        $user->delete();
+        return redirect()->back();
+    }
 }

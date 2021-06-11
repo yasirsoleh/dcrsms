@@ -80,10 +80,12 @@ Route::prefix('/account')->group(function () {
         ->name('account.customer_unban');
     Route::get('/rider/{rider}/ban', [AccountController::class,'rider_ban'])
         ->name('account.rider_ban');
-    Route::get('/customer/{rider}/unban', [AccountController::class,'rider_unban'])
+    Route::get('/rider/{rider}/unban', [AccountController::class,'rider_unban'])
         ->name('account.rider_unban');
-    Route::get('/customer/{rider}/approve', [AccountController::class,'rider_unban'])
+    Route::get('/rider/{rider}/approve', [AccountController::class,'rider_unban'])
         ->name('account.rider_approve');
+    Route::get('/customer/{customer}/destroy', [AccountController::class,'destroy_customer'])
+        ->name('account.destroy_customer');
 });
 
 Route::prefix('/service_request')->group(function () {

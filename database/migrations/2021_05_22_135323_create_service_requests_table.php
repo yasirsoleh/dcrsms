@@ -15,7 +15,7 @@ class CreateServiceRequestsTable extends Migration
     {
         Schema::create('service_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained();
+            $table->foreignId('customer_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('device_name');
             $table->string('device_description');
             $table->string('picture')->nullable();
