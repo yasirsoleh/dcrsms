@@ -15,10 +15,12 @@
                                 <h1 class="mb-5 text-5xl">
                                     Hello {{ $data->first_name }}!
                                 </h1> 
-                                <p class="mb-5">
-                                    Welcome to Dercs Computer Repair Shop
-                                </p> 
-                                <a href="{{ route('service_request.index') }}" class="btn">Get Started</a>
+                                @if (Auth::user()->hasRole('customer'))
+                                    <p class="mb-5">
+                                        Welcome to Dercs Computer Repair Shop
+                                    </p> 
+                                    <a href="{{ route('service_request.index') }}" class="btn">Get Started</a>
+                                @endif
                             </div>
                         </div>
                     </div>

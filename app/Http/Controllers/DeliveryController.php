@@ -15,7 +15,7 @@ class DeliveryController extends Controller
             $deliveries = Auth::user()->customer->deliveries;
             return view('Delivery.index', compact('deliveries'));
         }elseif (Auth::check() && Auth::user()->hasRole('rider')) {
-            $deliveries = PickUp::all();
+            $deliveries = Delivery::all();
             return view('Delivery.index', compact('deliveries'));
         }
         return redirect()->route('login');
@@ -44,7 +44,7 @@ class DeliveryController extends Controller
 
     public function show(Delivery $delivery)
     {
-        return view('Delivery.show', compact('deliveries'));
+        return view('Delivery.show', compact('delivery'));
     }
 
     public function edit(Delivery $delivery)
@@ -66,9 +66,9 @@ class DeliveryController extends Controller
 
     public function rider_accept(Delivery $delivery)
     {
-        $pick_up->rider_id = Auth::user()->rider->id;
-        $pick_up->status = 'picking_up';
-        $pick_up->save();
+        $delivery->rider_id = Auth::user()->rider->id;
+        $delivery->status = 'delivering';
+        $delivery->save();
         return redirect()->back();
     }
 }

@@ -34,7 +34,7 @@
                                             @else
                                                 @if ($rider->status == 'not_banned')
                                                     <a class="btn btn-sm" href="{{ route('account.rider_ban', ['rider'=> $rider]) }}">Ban</a></td>
-                                                @else
+                                                @elseif ($rider->status == 'banned')
                                                     <a class="btn btn-sm" href="{{ route('account.rider_ban', ['rider'=> $rider]) }}">Unban</a></td>
                                                 @endif
                                             @endif

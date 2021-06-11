@@ -50,12 +50,8 @@ class AccountController extends Controller
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'address' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
             ]);
             $user = Auth::user();
-            $user->email = $request->email;
-            $user->Hash::make($request->password);
-            $user->save();
             $customer = $user->customer;
             $customer->first_name = $request->first_name;
             $customer->last_name = $request->last_name;
@@ -65,40 +61,32 @@ class AccountController extends Controller
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
                 'address' => 'required|string|max:255',
-                'roadtax' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
-                'license' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
+                //'roadtax' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
+                //'license' => 'required|mimes:png,jpg,jpeg,pdf|max:2048',
             ]);
             $user = Auth::user();
-            $user->email = $request->email;
-            $user->Hash::make($request->password);
-            $user->save();
             $rider = $user->rider;
             $rider->first_name = $request->first_name;
             $rider->last_name = $request->last_name;
             $rider->address = $request->address;
-            $rider->roadtax = $request->file('roadtax')->store('roadtaxFile');
-            $rider->license = $request->file('license')->store('licenseFile');
+            //$rider->roadtax = $request->file('roadtax')->store('roadtaxFile');
+            //$rider->license = $request->file('license')->store('licenseFile');
             $rider->save();
 
         }elseif (Auth::check() && Auth::user()->hasRole('staff')) {
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => ['required', 'confirmed', Rules\Password::min(8)],
             ]);
             $user = Auth::user();
-            $user->email = $request->email;
-            $user->Hash::make($request->password);
-            $user->save();
             $staff = $user->staff;
             $staff->first_name = $request->first_name;
             $staff->last_name = $request->last_name;
+            $staff->phone_number = $request->phone_number;
             $staff->save();
         }
-        return redirect()->route('login');
+        return redirect()->back()->withErrors($validator)->withInput();
     }
 
     public function customer_ban(Customer $customer)

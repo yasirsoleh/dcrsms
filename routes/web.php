@@ -225,6 +225,8 @@ Route::prefix('/delivery')->group(function () {
         ->name('delivery.update');
     Route::delete('/{delivery}', [DeliveryController::class, 'destroy'])
         ->name('delivery.delete');
+    Route::get('/{delivery}/rider_accept}', [DeliveryController::class, 'rider_accept'])
+        ->name('delivery.rider_accept');
 });
 
 Route::prefix('/payment')->group(function () {
