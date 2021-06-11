@@ -125,9 +125,13 @@ class ServiceRequestController extends Controller
         return redirect()->route('quotation.show', $service_request);
     }
 
-    public function staff_not_approve(ServiceRequest $service_request)
+    public function staff_not_approve(Request $request, ServiceRequest $service_request)
     {
+        $request->validate([
+            'rejection_reason' => 'required|string|max:255',
+        ]);
         $service_request->approval_status = 'no';
+        $service_request->rejection_reason = $request->rejection_reason;
         $service_request->save();
         return redirect()->route('service_request.show', $service_request);
     }
@@ -144,5 +148,10 @@ class ServiceRequestController extends Controller
         $service_request->customer_approval = 'no';
         $service_request->save();
         return redirect()->route('quotation.index');
+    }
+
+    public function rejection_reason(ServiceRequest $service_request)
+    {
+        return view('ServiceRequest.reason', compact('service_request'));
     }
 }

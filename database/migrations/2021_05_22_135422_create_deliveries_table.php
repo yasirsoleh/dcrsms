@@ -16,7 +16,7 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rider_id')->nullable()->constrained();
-            $table->foreignId('service_requests_id')->constrained();
+            $table->foreignId('service_request_id')->constrained();
             $table->string('address');
             $table->enum('cash_on_delivery', ['yes', 'no']);
             $table->enum('status', ['waiting_rider', 'delivering','completed','failed']);

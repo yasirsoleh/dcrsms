@@ -11,6 +11,7 @@ class Repair extends Model
     protected $fillable = [
         'service_request_id',
         'status',
+        'reason',
     ];
 
     public function repair_items()

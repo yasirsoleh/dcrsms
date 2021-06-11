@@ -6,6 +6,7 @@ use App\Models\Repair;
 use App\Models\RepairItem;
 use App\Models\ServiceRequest;
 use App\Models\Payment;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,13 +72,14 @@ class RepairController extends Controller
                 'amount' => $repair->repair_items->sum('cost'),
                 'status' => 'pending',
             ]);
-        }else{
+        }elseif ($repair->status == 'cannot_be_repaired') {
             Delivery::create([
                 'service_request_id' => $repair->service_request->id,
                 'address' => $repair->service_request->pick_up->address,
                 'status' => 'waiting_rider',
-                'rider_id' => null,
+                'cash_on_delivery' => 'no',
             ]);
+            return view('Repair.reason', compact('$repair'));
         }
         return redirect()->back();
     }
@@ -107,5 +109,15 @@ class RepairController extends Controller
     {
         $repair_item->delete();
         return redirect()->back();
+    }
+
+    public function reason(Request $request, Repair $repair)
+    {
+        $request->validate([
+            'reason' => 'required|string|max:255',
+        ]);
+        $repair->reason = $request->reason;
+        $repair->save();
+        return redirect()->route('repair.index');
     }
 }

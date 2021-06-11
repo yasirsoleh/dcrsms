@@ -137,12 +137,14 @@ Route::prefix('/service_request')->group(function () {
         ->name('service_request.show');
     Route::get('/{service_request}/staff_approve', [ServiceRequestController::class,'staff_approve'])
         ->name('service_request.staff_approve');
-    Route::get('/{service_request}/staff_not_approve', [ServiceRequestController::class,'staff_not_approve'])
+    Route::put('/{service_request}/staff_not_approve', [ServiceRequestController::class,'staff_not_approve'])
         ->name('service_request.staff_not_approve');
     Route::get('/{service_request}/customer_approve', [ServiceRequestController::class,'customer_approve'])
         ->name('service_request.customer_approve');
     Route::get('/{service_request}/customer_not_approve', [ServiceRequestController::class,'customer_not_approve'])
         ->name('service_request.customer_not_approve');
+    Route::get('/{service_request}/rejection_reason', [ServiceRequestController::class,'rejection_reason'])
+        ->name('service_request.rejection_reason');
 });
 
 Route::prefix('/quotation')->group(function () {
@@ -160,6 +162,8 @@ Route::prefix('/quotation')->group(function () {
         ->name('quotation.update');
     Route::delete('/{quotation}', [QuotationController::class, 'destroy'])
         ->name('quotation.delete');
+    Route::delete('/{quotation}/destroy', [QuotationController::class, 'destroy'])
+        ->name('quotation.destroy');
 });
 
 Route::prefix('/pick_up')->group(function () {
@@ -202,6 +206,8 @@ Route::prefix('/repair')->group(function () {
         ->name('repair.store_item');
     Route::delete('/destroy_item/{repair_item}', [RepairController::class, 'destroy_item'])
         ->name('repair.destroy_item');
+    Route::put('/{repair}/reason', [RepairController::class, 'reason'])
+        ->name('repair.reason');
 });
 
 Route::prefix('/delivery')->group(function () {

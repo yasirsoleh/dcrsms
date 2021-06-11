@@ -80,5 +80,6 @@ class QuotationController extends Controller
     public function destroy(Quotation $quotation)
     {
         $quotation->delete();
+        return redirect()->back();
     }
 }

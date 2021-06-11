@@ -23,6 +23,7 @@
                                         <th>ID</th>
                                         <th>Description</th>
                                         <th>Cost (RM)</th>
+                                        <th>Action</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($service_request->quotations as $quotation)
@@ -30,6 +31,13 @@
                                                 <td>{{ $quotation->id }}</td>
                                                 <td>{{ $quotation->description }}</td>
                                                 <td>{{ $quotation->cost }}</td>
+                                                <td>
+                                                    <form action="{{ route('quotation.destroy', ['quotation'=>$quotation]) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <input class="btn btn-sm" type="submit" value="Delete">
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -37,6 +45,7 @@
                                         <tr>
                                             <td colspan="2">Total Cost</td>
                                             <td>{{ $service_request->quotations->sum('cost') }}</td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
