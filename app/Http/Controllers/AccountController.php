@@ -86,7 +86,7 @@ class AccountController extends Controller
             $staff->phone_number = $request->phone_number;
             $staff->save();
         }
-        return redirect()->back()->withErrors($validator)->withInput();
+        return redirect()->back();
     }
 
     public function customer_ban(Customer $customer)
