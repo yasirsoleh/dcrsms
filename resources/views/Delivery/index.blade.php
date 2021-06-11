@@ -42,7 +42,7 @@
                                                 @if ($delivery->status == 'waiting_rider')
                                                     <a class="btn btn-sm" href="{{ route('delivery.rider_accept', ['delivery'=>$delivery]) }}">Accept</a>
                                                 @endif
-                                                @if ($delivery->rider_id == Auth::user()->rider->id)
+                                                @if ($delivery->rider_id == Auth::user()->rider->id && $delivery->status != 'completed')
                                                     <a class="btn btn-sm" href="{{ route('delivery.edit', ['delivery'=>$delivery]) }}">Edit</a>
                                                 @endif
                                             @endif

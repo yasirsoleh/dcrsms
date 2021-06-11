@@ -56,6 +56,12 @@ class DeliveryController extends Controller
     {
         $delivery->status = $request->status;
         $delivery->save();
+        if ($delivery->status == 'completed') {
+
+            $payment = $delivery->service_request->payment;
+            $payment->status = 'received';
+            $payment->save();
+        }
         return redirect()->route('delivery.show', ['delivery' => $delivery]);
     }
 

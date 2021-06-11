@@ -73,6 +73,6 @@ class PaymentController extends Controller
             'rider_id' => null,
             'cash_on_delivery' => 'yes',
         ]);
-
+        return redirect()->back();
     }
 }

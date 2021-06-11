@@ -20,4 +20,9 @@ class Delivery extends Model
     {
         return $this->belongsTo(Rider::class)->withDefault();
     }
+
+    public function service_request()
+    {
+        return $this->belongsTo(ServiceRequest::class)->withDefault();
+    }
 }

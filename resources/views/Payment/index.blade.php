@@ -45,10 +45,12 @@
                                         <td>{{ $payment->status }}</td>
                                         <td>
                                             @if ($payment->status != 'received' && Auth::user()->hasRole('customer') && $payment->type != 'cash_on_delivery')
-                                                <a class="btn btn-sm" href="{{ route('payment.edit', ['payment'=> $payment]) }}">Online</a></td>
+                                                <a class="btn btn-sm" href="{{ route('payment.edit', ['payment'=> $payment]) }}">Online</a>
                                             @endif
                                             @if (Auth::user()->hasRole('customer') && $payment->type != 'online')
-                                                <a class="btn btn-sm" href="{{ route('payment.cash_on_delivery', ['payment'=> $payment]) }}">Cash on Delivery</a></td>
+                                                @if ($payment->type != 'cash_on_delivery')
+                                                <a class="btn btn-sm" href="{{ route('payment.cash_on_delivery', ['payment'=> $payment]) }}">Cash on Delivery</a>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>

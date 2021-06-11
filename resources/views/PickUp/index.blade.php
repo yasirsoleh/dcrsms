@@ -42,7 +42,7 @@
                                                 @if ($pick_up->status == 'waiting_rider')
                                                     <a class="btn btn-sm" href="{{ route('pick_up.rider_accept', ['pick_up'=>$pick_up]) }}">Accept</a>
                                                 @endif
-                                                @if ($pick_up->rider_id == Auth::user()->rider->id)
+                                                @if ($pick_up->rider_id == Auth::user()->rider->id && $pick_up->status != 'completed')
                                                     <a class="btn btn-sm" href="{{ route('pick_up.edit', ['pick_up'=>$pick_up]) }}">Edit</a>
                                                 @endif
                                             @endif

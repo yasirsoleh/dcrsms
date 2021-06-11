@@ -11,8 +11,6 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                        <form action="{{ route('quotation.store') }}" method="POST">
-                            @csrf
                             <label class="label" for="device_name">Device Name</label>
                             <input type="text" name="device_name" placeholder="Device Name" class="input input-bordered" value="{{ $service_request->device_name }}" disabled>
                             <label class="label">Quotations</label>
@@ -32,10 +30,10 @@
                                                 <td>{{ $quotation->description }}</td>
                                                 <td>{{ $quotation->cost }}</td>
                                                 <td>
-                                                    @if ($service_request->customer_approval == null)
-                                                        <form action="{{ route('quotation.destroy', ['quotation'=>$quotation]) }}" method="POST">
-                                                            @csrf
+                                                    @if ($service_request->customer_approval == null && Auth::user()->hasRole('staff'))
+                                                        <form action="{{ route('quotation.delete', ['quotation'=>$quotation]) }}" method="POST">
                                                             @method('DELETE')
+                                                            @csrf                                       
                                                             <input class="btn btn-sm" type="submit" value="Delete">
                                                         </form> 
                                                     @endif
@@ -59,7 +57,6 @@
                                 <a class="btn" href="{{ route('service_request.customer_approve', ['service_request'=>$service_request]) }}">Accept</a>
                                 <a class="btn" href="{{ route('service_request.customer_not_approve', ['service_request'=>$service_request]) }}">Reject</a>
                             @endif
-                        </form>
                     </div>                      
                 </div>
             </div>

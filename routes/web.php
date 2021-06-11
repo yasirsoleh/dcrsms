@@ -128,10 +128,8 @@ Route::prefix('/quotation')->group(function () {
         ->name('quotation.edit');
     Route::put('/{quotation}', [QuotationController::class, 'update'])
         ->name('quotation.update');
-    Route::delete('/{quotation}', [QuotationController::class, 'destroy'])
+    Route::delete('/{quotation}/delete', [QuotationController::class, 'destroy'])
         ->name('quotation.delete');
-    Route::delete('/{quotation}/destroy', [QuotationController::class, 'destroy'])
-        ->name('quotation.destroy');
 });
 
 Route::prefix('/pick_up')->group(function () {
