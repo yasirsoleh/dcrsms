@@ -43,6 +43,12 @@
                     "bInfo": false, // hide showing entries
                 });
             } );
+            $(document).ready( function () {
+                $('#myTable2').DataTable({
+                    "paging": false,
+                    "bInfo": false, // hide showing entries
+                });
+            } );
         </script>
     </body>
 </html>
