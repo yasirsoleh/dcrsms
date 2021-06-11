@@ -56,7 +56,7 @@ class ServiceRequestController extends Controller
         $service_request = ServiceRequest::create([
             'device_name' => $request->device_name,
             'device_description' => $request->device_description,
-            'picture' => $request->picture,
+            'picture' => $request->file('picture')->store('pictureFile'),
             'approval_status' => 'waiting',
             'customer_id' => Auth::user()->customer->id,
         ]);
