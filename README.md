@@ -1,11 +1,11 @@
 # DCRSMS
 ## Author
-Anas Adham bin Azlan CB18013 \
-Mohammad Alif Yasir bin Soleh CB18015 \
-Hazwan Afiq bin Mohamad CB18081 \
-Zul Adli Izzuddin bin Zalimin CB18086 \
-Muhammad Amar bin Razali CB18096 \
-Nur Azlin Liana binti Mohd Adlan CB18139
+[Anas Adham bin Azlan CB18013](https://github.com/AnasAdham) \
+[Mohammad Alif Yasir bin Soleh CB18015](https://github.com/yasirsoleh/) \
+[Hazwan Afiq bin Mohamad CB18081](https://github.com/hazwanafiqq) \
+[Zul Adli Izzuddin bin Zalimin CB18086](https://github.com/zul99hack) \
+[Muhammad Amar bin Razali CB18096](https://github.com/AmarRazali) \
+[Nur Azlin Liana binti Mohd Adlan CB18139](https://github.com/youseethatdaisy)
 ## Purpose
 For the subject BCS3133 Software Engineering Practices Semester 2 Session 2020/2021.
 ## Why dcrsms-nuked?
