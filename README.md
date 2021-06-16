@@ -1,6 +1,22 @@
 # DCRSMS
+## Author
+Anas Adham bin Azlan CB18013 \
+Mohammad Alif Yasir bin Soleh CB18015 \
+Hazwan Afiq bin Mohamad CB18081 \
+Zul Adli Izzuddin bin Zalimin CB18086 \
+Muhammad Amar bin Razali CB18096 \
+Nur Azlin Liana binti Mohd Adlan CB18139
+## Purpose
+For the subject BCS3133 Software Engineering Practices Semester 2 Session 2020/2021.
+## Why dcrsms-nuked?
+Because of integration failure at old repo [dcrsms](https://github.com/yasirsoleh/dcrsms).
 ## How to run
-### Using sail
+There is two way to run, using [Laravel Sail](#using-laravel-sail) or [XAMPP](#using-xampp). Follow the instructions accordingly.
+### Using Laravel Sail 
+#### 0. Clone the repository
+```
+git clone https://github.com/yasirsoleh/dcrsms-nuked.git
+```
 #### 1. Make sure to be inside the directory
 ```
 cd dcrsms-nuked
@@ -47,6 +63,10 @@ http://localhost
 ```
 
 ### Using XAMPP
+#### 0. Clone the repository
+```
+git clone https://github.com/yasirsoleh/dcrsms-nuked.git
+```
 #### 1. Make sure to be inside the directory
 ```
 cd dcrsms-nuked
