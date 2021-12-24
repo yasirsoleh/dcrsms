@@ -8,8 +8,6 @@
 [Nur Azlin Liana binti Mohd Adlan CB18139](https://github.com/youseethatdaisy)
 ## Purpose
 For the subject BCS3133 Software Engineering Practices Semester 2 Session 2020/2021.
-## Why dcrsms-nuked?
-Because of integration failure at old repo [dcrsms](https://github.com/yasirsoleh/dcrsms).
 ## How to run
 There is two way to run, using [Laravel Sail](#using-laravel-sail) or [XAMPP](#using-xampp). Follow the instructions accordingly.
 ### Using Laravel Sail 
